@@ -1,0 +1,226 @@
+﻿using Ergus.Backend.Core.Helpers;
+using Ergus.Backend.Infrastructure.Helpers;
+using Ergus.Backend.Infrastructure.Models;
+using Ergus.Backend.WebApi.Catalogo.Models.Advertisements.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Products.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Skus.Request;
+
+namespace Ergus.Backend.WebApi.Catalogo.Helpers
+{
+    public static class RequestExtension
+    {
+        #region [ Advertisement ]
+
+        public static Advertisement? ToAdvertisement(this AdvertisementAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var advertisement = Advertisement.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    integrationCode: request.IntegrationCode!,
+                    name: request.Name!,
+                    advertisementType: request.AdvertisementType?.GetEnumValueFromDescription<TipoAnuncio>() ?? TipoAnuncio.None,
+                    status: request.Status?.GetEnumValueFromDescription<TipoStatusAnuncio>() ?? TipoStatusAnuncio.Inativo,
+                    integrationId: request.IntegrationId,
+                    productId: request.ProductId
+                );
+
+            return advertisement;
+        }
+
+        public static Advertisement? ToAdvertisement(this AdvertisementUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var advertisement = new Advertisement(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    integrationCode: request.IntegrationCode!,
+                    name: request.Name!,
+                    advertisementType: request.AdvertisementType?.GetEnumValueFromDescription<TipoAnuncio>() ?? TipoAnuncio.None,
+                    status: request.Status?.GetEnumValueFromDescription<TipoStatusAnuncio>() ?? TipoStatusAnuncio.Inativo,
+                    integrationId: request.IntegrationId,
+                    productId: request.ProductId
+                );
+
+            return advertisement;
+        }
+
+        #endregion [ FIM - Advertisement ]
+
+        #region [ Category ]
+
+        public static Category? ToCategory(this CategoryAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var category = Category.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    parentId: request.ParentId
+                );
+
+            return category;
+        }
+
+        public static Category? ToCategory(this CategoryUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var category = new Category(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    active: request.Active,
+                    parentId: request.ParentId
+                );
+
+            return category;
+        }
+
+        #endregion [ FIM - Category ]
+
+        #region [ Product ]
+
+        public static Product? ToProduct(this ProductAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var product = Product.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    name: request.Name!,
+                    ncm: request.NCM!,
+                    advertisementType: request.AdvertisementType?.GetEnumValueFromDescription<TipoAnuncio>() ?? TipoAnuncio.None,
+                    categoryId: request.CategoryId,
+                    producerId: request.ProducerId,
+                    providerId: request.ProviderId
+                );
+
+            return product;
+        }
+
+        public static Product? ToProduct(this ProductUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var product = new Product(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    name: request.Name!,
+                    ncm: request.NCM!,
+                    advertisementType: request.AdvertisementType?.GetEnumValueFromDescription<TipoAnuncio>() ?? TipoAnuncio.None,
+                    active: request.Active,
+                    categoryId: request.CategoryId,
+                    producerId: request.ProducerId,
+                    providerId: request.ProviderId
+                );
+
+            return product;
+        }
+
+        #endregion [ FIM - Product ]
+
+        #region [ ProductAttribute ]
+
+        public static ProductAttribute? ToProductAttribute(this ProductAttributeAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var productAttribute = ProductAttribute.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    metadataId: request.MetadataId,
+                    productId: request.ProductId
+                );
+
+            return productAttribute;
+        }
+
+        public static ProductAttribute? ToProductAttribute(this ProductAttributeUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var productAttribute = new ProductAttribute(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    metadataId: request.MetadataId,
+                    productId: request.ProductId
+                );
+
+            return productAttribute;
+        }
+
+        #endregion [ FIM - ProductAttribute ]
+
+        #region [ Sku ]
+
+        public static Sku? ToSku(this SkuAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var sku = Sku.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    name: request.Name!,
+                    reference: request.Reference!,
+                    bar: request.Bar!,
+                    height: request.Height ?? 0,
+                    width: request.Width ?? 0,
+                    depth: request.Depth ?? 0,
+                    weight: request.Weight ?? 0,
+                    cost: request.Cost ?? 0,
+                    productId: request.ProductId
+                );
+
+            return sku;
+        }
+
+        public static Sku? ToSku(this SkuUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var sku = new Sku(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    skuCode: request.SkuCode!,
+                    name: request.Name!,
+                    reference: request.Reference!,
+                    bar: request.Bar!,
+                    height: request.Height ?? 0,
+                    width: request.Width ?? 0,
+                    depth: request.Depth ?? 0,
+                    weight: request.Weight ?? 0,
+                    cost: request.Cost ?? 0,
+                    productId: request.ProductId
+                );
+
+            return sku;
+        }
+
+        #endregion [ FIM - Sku ]
+    }
+}
