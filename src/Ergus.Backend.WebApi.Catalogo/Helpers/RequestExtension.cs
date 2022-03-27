@@ -2,8 +2,11 @@
 using Ergus.Backend.Infrastructure.Helpers;
 using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.WebApi.Catalogo.Models.Advertisements.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.AdvertisementSkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.PriceLists.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Products.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.SkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Skus.Request;
 
 namespace Ergus.Backend.WebApi.Catalogo.Helpers
@@ -55,6 +58,49 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
 
         #endregion [ FIM - Advertisement ]
 
+        #region [ AdvertisementSkuPrice ]
+
+        public static AdvertisementSkuPrice? ToAdvertisementSkuPrice(this AdvertisementSkuPriceAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var advertisementSkuPrice = AdvertisementSkuPrice.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    value: request.Value!,
+                    fictionalValue: request.FictionalValue!,
+                    promotionStart: request.PromotionStart,
+                    promotionEnd: request.PromotionEnd,
+                    priceListId: request.PriceListId,
+                    advertisementSkuId: request.AdvertisementSkuId
+                );
+
+            return advertisementSkuPrice;
+        }
+
+        public static AdvertisementSkuPrice? ToAdvertisementSkuPrice(this AdvertisementSkuPriceUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var advertisementSkuPrice = new AdvertisementSkuPrice(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    value: request.Value!,
+                    fictionalValue: request.FictionalValue!,
+                    promotionStart: request.PromotionStart,
+                    promotionEnd: request.PromotionEnd,
+                    priceListId: request.PriceListId,
+                    advertisementSkuId: request.AdvertisementSkuId
+                );
+
+            return advertisementSkuPrice;
+        }
+
+        #endregion [ FIM - AdvertisementSkuPrice ]
+
         #region [ Category ]
 
         public static Category? ToCategory(this CategoryAddRequest request)
@@ -90,6 +136,55 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - Category ]
+
+        #region [ PriceList ]
+
+        public static PriceList? ToPriceList(this PriceListAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var priceList = PriceList.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    initDate: request.InitDate!,
+                    endDate: request.EndDate!,
+                    name: request.Name!,
+                    value: request.Value,
+                    type: request.Type?.GetEnumValueFromDescription<TipoListaPreco>() ?? TipoListaPreco.Nenhum,
+                    adjustmentType: request.AdjustmentType?.GetEnumValueFromDescription<TipoAjuste>() ?? TipoAjuste.Nenhum,
+                    operationType: request.OperationType?.GetEnumValueFromDescription<TipoOperacao>() ?? TipoOperacao.Nenhum,
+                    saleMaxAmount: request.SaleMaxAmount,
+                    parentId: request.ParentId
+                );
+
+            return priceList;
+        }
+
+        public static PriceList? ToPriceList(this PriceListUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var priceList = new PriceList(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    initDate: request.InitDate!,
+                    endDate: request.EndDate!,
+                    name: request.Name!,
+                    value: request.Value,
+                    type: request.Type?.GetEnumValueFromDescription<TipoListaPreco>() ?? TipoListaPreco.Nenhum,
+                    adjustmentType: request.AdjustmentType?.GetEnumValueFromDescription<TipoAjuste>() ?? TipoAjuste.Nenhum,
+                    operationType: request.OperationType?.GetEnumValueFromDescription<TipoOperacao>() ?? TipoOperacao.Nenhum,
+                    saleMaxAmount: request.SaleMaxAmount,
+                    parentId: request.ParentId
+                );
+
+            return priceList;
+        }
+
+        #endregion [ FIM - PriceList ]
 
         #region [ Product ]
 
@@ -222,5 +317,50 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - Sku ]
+
+
+
+        #region [ SkuPrice ]
+
+        public static SkuPrice? ToSkuPrice(this SkuPriceAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var skuPrice = SkuPrice.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    value: request.Value!,
+                    fictionalValue: request.FictionalValue!,
+                    promotionStart: request.PromotionStart,
+                    promotionEnd: request.PromotionEnd,
+                    priceListId: request.PriceListId,
+                    skuId: request.SkuId
+                );
+
+            return skuPrice;
+        }
+
+        public static SkuPrice? ToSkuPrice(this SkuPriceUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var skuPrice = new SkuPrice(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    value: request.Value!,
+                    fictionalValue: request.FictionalValue!,
+                    promotionStart: request.PromotionStart,
+                    promotionEnd: request.PromotionEnd,
+                    priceListId: request.PriceListId,
+                    skuId: request.SkuId
+                );
+
+            return skuPrice;
+        }
+
+        #endregion [ FIM - AdvertisementSkuPrice ]
     }
 }

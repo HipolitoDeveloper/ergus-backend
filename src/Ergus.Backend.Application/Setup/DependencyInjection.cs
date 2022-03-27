@@ -8,10 +8,13 @@ namespace Ergus.Backend.Application.Setup
         public static void AddDependencyInjectionApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton<IAdvertisementService, AdvertisementService>();
+            services.AddSingleton<IAdvertisementSkuPriceService, AdvertisementSkuPriceService>();
             services.AddSingleton<ICategoryService, CategoryService>();
+            services.AddSingleton<IPriceListService, PriceListService>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IProductAttributeService, ProductAttributeService>();
             services.AddSingleton<ISkuService, SkuService>();
+            services.AddSingleton<ISkuPriceService, SkuPriceService>();
             services.AddSingleton<IUserService, UserService>();
         }
     }

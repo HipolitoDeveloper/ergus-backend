@@ -14,6 +14,20 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
                 StaticAdvertisementCodeBeUniqueValidator.Configure(advertisementRepository);
             }
 
+            var advertisementSkuRepository = app.ApplicationServices.GetService<IAdvertisementSkuRepository>();
+            if (advertisementSkuRepository != null)
+            {
+                StaticAdvertisementSkuExistsValidator.Configure(advertisementSkuRepository);
+                StaticAdvertisementSkuCodeBeUniqueValidator.Configure(advertisementSkuRepository);
+            }
+
+            var advertisementSkuPriceRepository = app.ApplicationServices.GetService<IAdvertisementSkuPriceRepository>();
+            if (advertisementSkuPriceRepository != null)
+            {
+                StaticAdvertisementSkuPriceExistsValidator.Configure(advertisementSkuPriceRepository);
+                StaticAdvertisementSkuPriceCodeBeUniqueValidator.Configure(advertisementSkuPriceRepository);
+            }
+
             var categoryRepository = app.ApplicationServices.GetService<ICategoryRepository>();
             if (categoryRepository != null)
             {
@@ -31,6 +45,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
             var metadataRepository = app.ApplicationServices.GetService<IMetadataRepository>();
             if (metadataRepository != null)
                 StaticMetadataExistsValidator.Configure(metadataRepository);
+
+            var priceListRepository = app.ApplicationServices.GetService<IPriceListRepository>();
+            if (priceListRepository != null)
+            {
+                StaticPriceListExistsValidator.Configure(priceListRepository);
+                StaticPriceListCodeBeUniqueValidator.Configure(priceListRepository);
+            }
 
             var producerRepository = app.ApplicationServices.GetService<IProducerRepository>();
             if (producerRepository != null)
@@ -62,6 +83,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
             {
                 StaticSkuExistsValidator.Configure(skuRepository);
                 StaticSkuCodeBeUniqueValidator.Configure(skuRepository);
+            }
+
+            var skuPriceRepository = app.ApplicationServices.GetService<ISkuPriceRepository>();
+            if (skuPriceRepository != null)
+            {
+                StaticSkuPriceExistsValidator.Configure(skuPriceRepository);
+                StaticSkuPriceCodeBeUniqueValidator.Configure(skuPriceRepository);
             }
         }
     }
