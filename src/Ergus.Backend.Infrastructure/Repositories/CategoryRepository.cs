@@ -24,6 +24,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
 
         #region [ Construtores ]
 
+        public CategoryRepository() { }
+
         public CategoryRepository(AppClientContext context)
         {
             this._context = context;

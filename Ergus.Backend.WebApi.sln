@@ -13,6 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ergus.Backend.WebApi.Catalo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ergus.Backend.WebApi.Auth", "src\Ergus.Backend.WebApi.Auth\Ergus.Backend.WebApi.Auth.csproj", "{E15D0213-6824-4146-B61F-0E96B927B6D1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - WebApis", "1 - WebApis", "{38CA0E84-2D45-4E2E-85DB-75C613DDC930}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Core", "0 - Core", "{727AD236-1FF1-4534-9D2E-B0AD72C066F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Tests", "2 - Tests", "{7674296B-B8A9-4BB5-91E8-8B84151FCF78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ergus.Backend.Application.Tests", "test\Ergus.Backend.Application.Tests\Ergus.Backend.Application.Tests.csproj", "{B8126A4B-6AF7-4901-928A-E31AA910B1FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +47,21 @@ Global
 		{E15D0213-6824-4146-B61F-0E96B927B6D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E15D0213-6824-4146-B61F-0E96B927B6D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E15D0213-6824-4146-B61F-0E96B927B6D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8126A4B-6AF7-4901-928A-E31AA910B1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8126A4B-6AF7-4901-928A-E31AA910B1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8126A4B-6AF7-4901-928A-E31AA910B1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8126A4B-6AF7-4901-928A-E31AA910B1FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A42F948-2298-441E-9661-86CE30BD7C38} = {727AD236-1FF1-4534-9D2E-B0AD72C066F9}
+		{9E8A30BB-EEC7-4AC1-9C98-00800918214A} = {727AD236-1FF1-4534-9D2E-B0AD72C066F9}
+		{1C0A69B8-AA59-405D-A157-26D8796B1E17} = {727AD236-1FF1-4534-9D2E-B0AD72C066F9}
+		{5287B6FB-E9AC-4873-84C6-A947348BEE6F} = {38CA0E84-2D45-4E2E-85DB-75C613DDC930}
+		{E15D0213-6824-4146-B61F-0E96B927B6D1} = {38CA0E84-2D45-4E2E-85DB-75C613DDC930}
+		{B8126A4B-6AF7-4901-928A-E31AA910B1FF} = {7674296B-B8A9-4BB5-91E8-8B84151FCF78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E916563-095C-4480-A2BF-DBE23DEB58E5}

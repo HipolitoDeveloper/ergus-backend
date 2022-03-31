@@ -1,6 +1,7 @@
 ﻿using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.Infrastructure.Repositories;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Ergus.Backend.Application.Tests")]
 namespace Ergus.Backend.Application.Services
 {
     public interface IProductService

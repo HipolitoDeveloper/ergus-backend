@@ -2,6 +2,7 @@
 using Ergus.Backend.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace Ergus.Backend.Infrastructure.Repositories
 {
     public interface IProductRepository : IRepository
@@ -23,6 +24,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         #endregion [ FIM - Propriedades ]
 
         #region [ Construtores ]
+
+        internal ProductRepository() { }
 
         public ProductRepository(AppClientContext context)
         {

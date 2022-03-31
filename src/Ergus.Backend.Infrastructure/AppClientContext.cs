@@ -8,23 +8,25 @@ namespace Ergus.Backend.Infrastructure
     {
         #region [ Propriedades ]
         
-        public DbSet<Advertisement>? Advertisements                 { get; set; }
-        public DbSet<AdvertisementSku>? AdvertisementSkus           { get; set; }
-        public DbSet<AdvertisementSkuPrice>? AdvertisementSkuPrices { get; set; }
-        public DbSet<Category>? Categories                          { get; set; }
-        public DbSet<Integration>? Integrations                     { get; set; }
-        public DbSet<Metadata>? Metadatas                           { get; set; }
-        public DbSet<PriceList>? PriceLists                         { get; set; }
-        public DbSet<Product>? Products                             { get; set; }
-        public DbSet<Producer>? Producers                           { get; set; }
-        public DbSet<Provider>? Providers                           { get; set; }
-        public DbSet<ProductAttribute>? ProductAttributes           { get; set; }
-        public DbSet<Sku>? Skus                                     { get; set; }
-        public DbSet<SkuPrice>? SkuPrices                           { get; set; }
+        public virtual DbSet<Advertisement>? Advertisements                 { get; set; }
+        public virtual DbSet<AdvertisementSku>? AdvertisementSkus           { get; set; }
+        public virtual DbSet<AdvertisementSkuPrice>? AdvertisementSkuPrices { get; set; }
+        public virtual DbSet<Category>? Categories                          { get; set; }
+        public virtual DbSet<Integration>? Integrations                     { get; set; }
+        public virtual DbSet<Metadata>? Metadatas                           { get; set; }
+        public virtual DbSet<PriceList>? PriceLists                         { get; set; }
+        public virtual DbSet<Product>? Products                             { get; set; }
+        public virtual DbSet<Producer>? Producers                           { get; set; }
+        public virtual DbSet<Provider>? Providers                           { get; set; }
+        public virtual DbSet<ProductAttribute>? ProductAttributes           { get; set; }
+        public virtual DbSet<Sku>? Skus                                     { get; set; }
+        public virtual DbSet<SkuPrice>? SkuPrices                           { get; set; }
 
         #endregion [ FIM - Propriedades ]
 
         #region [ Construtores ]
+
+        internal AppClientContext() { }
 
         public AppClientContext(DbContextOptions<AppClientContext> options) : base(options) { }
 
