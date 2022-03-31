@@ -52,8 +52,8 @@ namespace Ergus.Backend.Infrastructure.Validations
             {
                 RuleFor(x => x.Status!.GetEnumValueFromDescription<TipoStatusAnuncio>())
                     .Cascade(CascadeMode.Stop)
-                    .NotEmpty().WithMessage(x => $"O Tipo Status Anúncio {x.Status} está inválido")
-                    .IsInEnum().WithMessage(x => $"O Tipo Status Anúncio {x.Status} está inválido");
+                    .NotEmpty().WithMessage(x => $"O Tipo Status Anúncio {x.Status} está inválido1")
+                    .IsInEnum().WithMessage(x => $"O Tipo Status Anúncio {x.Status} está inválido2");
             });
         }
     }

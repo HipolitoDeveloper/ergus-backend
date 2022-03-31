@@ -1,9 +1,6 @@
-using Autofac.Extras.Moq;
 using Ergus.Backend.Application.Services;
 using Ergus.Backend.Application.Tests.Helpers;
 using Ergus.Backend.Infrastructure.Models;
-using Ergus.Backend.Infrastructure.Repositories;
-using Ergus.Backend.Infrastructure.Validations.Custom;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -23,7 +20,7 @@ namespace Ergus.Backend.Application.Tests
 
         public ProductServiceTest() : base()
         {
-            _product = CreateObject.GetProduct(this._productId);
+            _product = CreateObject.GetProduct(this._productId, this._producerId, this._categoryId, this._providerId);
             _service = this._autoMock.Create<ProductService>();
 
             MockGetCategory(this._categoryId);

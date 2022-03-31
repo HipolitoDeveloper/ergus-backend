@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("anuncio_sku_preco")]
-    public class AdvertisementSkuPrice : BaseModel, IAdvertisementSkuPrice
+    public class AdvertisementSkuPrice : BaseModel, IAdvertisementSkuPrice, IGeneric
     {
         public AdvertisementSkuPrice() { }
 

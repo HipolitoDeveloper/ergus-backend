@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("produto_atributo")]
-    public class ProductAttribute : BaseModel, IProductAttribute
+    public class ProductAttribute : BaseModel, IProductAttribute, IGeneric
     {
         public ProductAttribute() { }
 

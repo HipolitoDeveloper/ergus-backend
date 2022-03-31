@@ -42,12 +42,14 @@ namespace Ergus.Backend.Infrastructure.Helpers
 
     public enum TipoStatusAnuncio
     {
+        [Description("nenhum")]
+        Nenhum = 0,
         [Description("ativo")]
-        Ativo = 0,
+        Ativo = 1,
         [Description("inativo")]
-        Inativo = 1,
+        Inativo = 2,
         [Description("pausado")]
-        Pausado = 2,
+        Pausado = 3,
     }
 
     #endregion [ FIM - Anuncio ]

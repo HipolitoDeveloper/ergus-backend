@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("sku")]
-    public class Sku : BaseModel, ISku
+    public class Sku : BaseModel, ISku, IGeneric
     {
         public Sku() { }
 

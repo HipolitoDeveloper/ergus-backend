@@ -48,16 +48,40 @@ namespace Ergus.Backend.Application.Tests
 
         #region [ Mocks ]
 
+        public void MockGetAdvertisementSku(int advertisementSkuId)
+        {
+            var advertisementSku = CreateObject.GetAdvertisementSku(advertisementSkuId);
+            this._mockAdvertisementSkuRepository.Setup(x => x.Get(advertisementSkuId, false)).ReturnsAsync(advertisementSku);
+        }
+
         public void MockGetCategory(int categoryId)
         {
             var category = CreateObject.GetCategory(categoryId, null);
             this._mockCategoryRepository.Setup(x => x.Get(categoryId, false)).ReturnsAsync(category);
         }
 
+        public void MockGetIntegration(int integrationId)
+        {
+            var integration = CreateObject.GetIntegration(integrationId);
+            this._mockIntegrationRepository.Setup(x => x.Get(integrationId, false)).ReturnsAsync(integration);
+        }
+
+        public void MockGetPriceList(int priceListId)
+        {
+            var priceList = CreateObject.GetPriceList(priceListId, null);
+            this._mockPriceListRepository.Setup(x => x.Get(priceListId, false)).ReturnsAsync(priceList);
+        }
+
         public void MockGetProducer(int producerId)
         {
             var producer = CreateObject.GetProducer(producerId);
             this._mockProducerRepository.Setup(x => x.Get(producerId, false)).ReturnsAsync(producer);
+        }
+
+        public void MockGetProduct(int productId)
+        {
+            var product = CreateObject.GetProduct(productId, null, null, null);
+            this._mockProductRepository.Setup(x => x.Get(productId, false)).ReturnsAsync(product);
         }
 
         public void MockGetProvider(int providerId)

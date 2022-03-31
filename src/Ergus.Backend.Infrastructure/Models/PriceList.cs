@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("lista_preco")]
-    public class PriceList : BaseModel, IPriceList
+    public class PriceList : BaseModel, IPriceList, IGeneric
     {
         public PriceList() { }
 

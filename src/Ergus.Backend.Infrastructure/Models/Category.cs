@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("categoria")]
-    public class Category : BaseModel, ICategory
+    public class Category : BaseModel, ICategory, IGeneric
     {
         public Category() { }
 
