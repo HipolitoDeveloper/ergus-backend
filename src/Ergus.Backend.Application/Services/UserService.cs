@@ -7,6 +7,7 @@ namespace Ergus.Backend.Application.Services
 {
     public interface IUserService
     {
+        Task<User?> Get(int id);
         Task<User?> GetByLogin(string login);
         Task<bool> HandleUserTokens(int userId, string encryptedAccessToken);
     }
@@ -18,6 +19,11 @@ namespace Ergus.Backend.Application.Services
         public UserService(IUserRepository userRepository)
         {
             this._userRepository = userRepository;
+        }
+
+        public async Task<User?> Get(int id)
+        {
+            return await this._userRepository.Get(id, false);
         }
 
         public async Task<User?> GetByLogin(string login)

@@ -4,8 +4,8 @@
     {
         string? Code            { get; }
         string? ExternalCode    { get; }
-        int MetadataId          { get; }
-        int ProductId           { get; }
+        int? MetadataId         { get; }
+        int? ProductId          { get; }
 
         bool EhValido();
     }

@@ -7,6 +7,17 @@ namespace Ergus.Backend.Infrastructure.Models
     [Table("usuario")]
     public class User
     {
+        public User() { }
+
+        public User(int id, string name, string login, string password, string email)
+        {
+            Id = id;
+            Name = name;
+            Login = login;
+            Password = password;
+            Email = email;
+        }
+
         [Column("usu_id")]
         public int Id       { get; set; }
 

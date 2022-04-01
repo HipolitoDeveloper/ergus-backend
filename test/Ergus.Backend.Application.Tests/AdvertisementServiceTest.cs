@@ -33,8 +33,10 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Add(_advertisement);
 
-            this._mockAdvertisementRepository.Verify(x => x.Add(_advertisement), Times.Exactly(1));
             Assert.NotNull(actual);
+            Assert.True(actual!.EhValido());
+            Assert.Empty(actual.Erros);
+            this._mockAdvertisementRepository.Verify(x => x.Add(_advertisement), Times.Exactly(1));
         }
 
         [Fact]
@@ -110,9 +112,11 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Update(_advertisement);
 
+            Assert.NotNull(actual);
+            Assert.True(actual!.EhValido());
+            Assert.Empty(actual.Erros);
             this._mockAdvertisementRepository.Verify(x => x.Get(_advertisementId, true), Times.Exactly(1));
             this._mockAdvertisementRepository.Verify(x => x.Update(_advertisement), Times.Exactly(1));
-            Assert.NotNull(actual);
         }
 
         [Fact]

@@ -12,7 +12,7 @@ namespace Ergus.Backend.Infrastructure.Models
     {
         public ProductAttribute() { }
 
-        public ProductAttribute(int id, string code, string externalCode, int metadataId, int productId)
+        public ProductAttribute(int id, string code, string externalCode, int? metadataId, int? productId)
         {
             Id = id;
             Code = code;
@@ -35,11 +35,11 @@ namespace Ergus.Backend.Infrastructure.Models
 
         [Column("md_id")]
         [ForeignKey(nameof(Metadata))]
-        public int MetadataId { get; private set; }
+        public int? MetadataId { get; private set; }
 
         [Column("pro_id")]
         [ForeignKey(nameof(Product))]
-        public int ProductId { get; private set; }
+        public int? ProductId { get; private set; }
 
         [Column("pro_att_dt_inc")]
         public DateTime CreatedDate { get; private set; }
@@ -64,7 +64,7 @@ namespace Ergus.Backend.Infrastructure.Models
 
         #region [ Metodos ]
 
-        public static ProductAttribute Criar(string code, string externalCode, int metadataId, int productId)
+        public static ProductAttribute Criar(string code, string externalCode, int? metadataId, int? productId)
         {
             var productAttr = new ProductAttribute();
 

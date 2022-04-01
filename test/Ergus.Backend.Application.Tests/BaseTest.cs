@@ -7,14 +7,17 @@ using Ergus.Backend.Infrastructure.Validations.Custom;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
+using Xunit;
 
 namespace Ergus.Backend.Application.Tests
 {
+    [Collection(nameof(SystemTestCollectionDefinition))]
     public class BaseTest : IDisposable
     {
         #region [ Propriedades ]
 
         private Mock<AppClientContext> _appClientContext;
+        private Mock<AppServerContext> _appServerContext;
 
         protected AutoMock _autoMock;
 
@@ -31,6 +34,7 @@ namespace Ergus.Backend.Application.Tests
         protected Mock<IProviderRepository> _mockProviderRepository;
         protected Mock<ISkuRepository> _mockSkuRepository;
         protected Mock<ISkuPriceRepository> _mockSkuPriceRepository;
+        protected Mock<IUserRepository> _mockUserRepository;
 
         #endregion [ FIM - Propriedades ]
 
@@ -50,44 +54,82 @@ namespace Ergus.Backend.Application.Tests
 
         public void MockGetAdvertisementSku(int advertisementSkuId)
         {
+            this._mockAdvertisementSkuRepository.Reset();
+
             var advertisementSku = CreateObject.GetAdvertisementSku(advertisementSkuId);
             this._mockAdvertisementSkuRepository.Setup(x => x.Get(advertisementSkuId, false)).ReturnsAsync(advertisementSku);
         }
 
         public void MockGetCategory(int categoryId)
         {
+            this._mockCategoryRepository.Reset();
+
             var category = CreateObject.GetCategory(categoryId, null);
             this._mockCategoryRepository.Setup(x => x.Get(categoryId, false)).ReturnsAsync(category);
         }
 
         public void MockGetIntegration(int integrationId)
         {
+            this._mockIntegrationRepository.Reset();
+
             var integration = CreateObject.GetIntegration(integrationId);
             this._mockIntegrationRepository.Setup(x => x.Get(integrationId, false)).ReturnsAsync(integration);
         }
 
+        public void MockGetMetadata(int metadataId)
+        {
+            this._mockMetadataRepository.Reset();
+
+            var metadata = CreateObject.GetMetadata(metadataId);
+            this._mockMetadataRepository.Setup(x => x.Get(metadataId, false)).ReturnsAsync(metadata);
+        }
+
         public void MockGetPriceList(int priceListId)
         {
+            this._mockPriceListRepository.Reset();
+
             var priceList = CreateObject.GetPriceList(priceListId, null);
             this._mockPriceListRepository.Setup(x => x.Get(priceListId, false)).ReturnsAsync(priceList);
         }
 
         public void MockGetProducer(int producerId)
         {
+            this._mockProducerRepository.Reset();
+
             var producer = CreateObject.GetProducer(producerId);
             this._mockProducerRepository.Setup(x => x.Get(producerId, false)).ReturnsAsync(producer);
         }
 
         public void MockGetProduct(int productId)
         {
+            this._mockProductRepository.Reset();
+
             var product = CreateObject.GetProduct(productId, null, null, null);
             this._mockProductRepository.Setup(x => x.Get(productId, false)).ReturnsAsync(product);
         }
 
         public void MockGetProvider(int providerId)
         {
+            this._mockProviderRepository.Reset();
+
             var provider = CreateObject.GetProvider(providerId);
             this._mockProviderRepository.Setup(x => x.Get(providerId, false)).ReturnsAsync(provider);
+        }
+
+        public void MockGetSku(int skuId)
+        {
+            this._mockSkuRepository.Reset();
+
+            var sku = CreateObject.GetSku(skuId, null);
+            this._mockSkuRepository.Setup(x => x.Get(skuId, false)).ReturnsAsync(sku);
+        }
+
+        public void MockGetUser(int userId)
+        {
+            this._mockUserRepository.Reset();
+
+            var user = CreateObject.GetUser(userId);
+            this._mockUserRepository.Setup(x => x.Get(userId, false)).ReturnsAsync(user);
         }
 
         #endregion [ FIM - Mocks ]
@@ -95,6 +137,7 @@ namespace Ergus.Backend.Application.Tests
         private void ConfigureMockRepository()
         {
             _appClientContext = this._autoMock.Mock<AppClientContext>();
+            _appServerContext = this._autoMock.Mock<AppServerContext>();
 
             #region [ Mock Repositories ]
 
@@ -111,10 +154,11 @@ namespace Ergus.Backend.Application.Tests
             this._mockProviderRepository = this._autoMock.Mock<IProviderRepository>();
             this._mockSkuRepository = this._autoMock.Mock<ISkuRepository>();
             this._mockSkuPriceRepository = this._autoMock.Mock<ISkuPriceRepository>();
+            this._mockUserRepository = this._autoMock.Mock<IUserRepository>();
 
             #endregion [ FIM - Mock Repositories ]
 
-            #region [ Mock Validators ]
+            #region [ Mock DbContext e Validators ]
 
             if (_mockAdvertisementRepository != null)
             {
@@ -231,7 +275,14 @@ namespace Ergus.Backend.Application.Tests
                 StaticSkuPriceCodeBeUniqueValidator.Configure(_mockSkuPriceRepository.Object);
             }
 
-            #endregion [ FIM - Mock Validators ]
+            if (_mockUserRepository != null)
+            {
+                _appServerContext.Setup(x => x.Users).Returns(new Mock<DbSet<User>>().Object);
+                _mockUserRepository.Setup(x => x.UnitOfWork).Returns(_appServerContext.Object);
+                _mockUserRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+            }
+
+            #endregion [ FIM - Mock DbContext e Validators ]
         }
 
         public void Dispose()

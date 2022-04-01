@@ -22,8 +22,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public int Id               { get; set; }
         public string Code          { get; set; } = string.Empty;
         public string ExternalCode  { get; set; } = string.Empty;
-        public int MetadataId       { get; set; }
-        public int ProductId        { get; set; }
+        public int? MetadataId      { get; set; }
+        public int? ProductId       { get; set; }
 
         public virtual MetadataResponse? Metadata   { get; set; }
         public virtual ProductResponse? Product     { get; set; }

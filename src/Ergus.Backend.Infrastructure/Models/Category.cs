@@ -1,8 +1,7 @@
-﻿using FluentValidation;
-using Ergus.Backend.Infrastructure.Models.Interfaces;
-using Ergus.Backend.Infrastructure.Repositories;
+﻿using Ergus.Backend.Infrastructure.Models.Interfaces;
 using Ergus.Backend.Infrastructure.Validations;
 using Ergus.Backend.Infrastructure.Validations.Custom;
+using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

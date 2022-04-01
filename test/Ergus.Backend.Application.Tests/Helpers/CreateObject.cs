@@ -64,6 +64,13 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static Metadata GetMetadata(int id)
+        {
+            return new Metadata(
+                id: id
+            );
+        }
+
         public static PriceList GetPriceList(int id, int? parentId)
         {
             return new PriceList(
@@ -107,11 +114,67 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static ProductAttribute GetProductAttribute(int id, int? metadataId, int? productId)
+        {
+            return new ProductAttribute(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                metadataId: metadataId,
+                productId: productId
+            );
+        }
+
         public static Provider GetProvider(int id)
         {
             return new Provider(
                 id: id,
                 code: "COD"
+            );
+        }
+
+        public static Sku GetSku(int id, int? productId)
+        {
+            return new Sku(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                skuCode: "SCOD",
+                name: "Produto",
+                reference: "Referencia",
+                bar: "Bar",
+                height: 1,
+                width: 2,
+                depth: 3,
+                weight: 4,
+                cost: 5,
+                productId: productId
+            );
+        }
+
+        public static SkuPrice GetSkuPrice(int id, int? priceListId, int? skuId)
+        {
+            return new SkuPrice(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                value: 1,
+                fictionalValue: 2,
+                promotionStart: DateTime.Now.AddDays(-1),
+                promotionEnd: DateTime.Now.AddDays(1),
+                priceListId: priceListId,
+                skuId: skuId
+            );
+        }
+
+        public static User GetUser(int id)
+        {
+            return new User(
+                id: id,
+                name: "Nome",
+                login: "Login",
+                password: "Password",
+                email: "email@ab.com"
             );
         }
     }

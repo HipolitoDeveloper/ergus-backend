@@ -8,12 +8,14 @@ namespace Ergus.Backend.Infrastructure
     {
         #region [ Propriedades ]
 
-        public DbSet<User>? Users           { get; set; }
-        public DbSet<UserToken>? UserTokens { get; set; }
+        public virtual DbSet<User>? Users           { get; set; }
+        public virtual DbSet<UserToken>? UserTokens { get; set; }
 
         #endregion [ FIM - Propriedades ]
 
         #region [ Construtores ]
+
+        internal AppServerContext() { }
 
         public AppServerContext(DbContextOptions<AppServerContext> options) : base(options) { }
 

@@ -31,8 +31,10 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Add(_category);
 
-            this._mockCategoryRepository.Verify(x => x.Add(_category), Times.Exactly(1));
             Assert.NotNull(actual);
+            Assert.True(actual!.EhValido());
+            Assert.Empty(actual.Erros);
+            this._mockCategoryRepository.Verify(x => x.Add(_category), Times.Exactly(1));
         }
 
         [Fact]
@@ -110,9 +112,11 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Update(_category);
 
+            Assert.NotNull(actual);
+            Assert.True(actual!.EhValido());
+            Assert.Empty(actual.Erros);
             this._mockCategoryRepository.Verify(x => x.Get(_categoryId, true), Times.Exactly(1));
             this._mockCategoryRepository.Verify(x => x.Update(_category), Times.Exactly(1));
-            Assert.NotNull(actual);
         }
 
         [Fact]

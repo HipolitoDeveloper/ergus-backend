@@ -10,8 +10,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models.Categories.Request
     {
         public string? Code         { get; set; } = string.Empty;
         public string? ExternalCode { get; set; } = string.Empty;
-        public int MetadataId       { get; set; }
-        public int ProductId        { get; set; }
+        public int? MetadataId      { get; set; }
+        public int? ProductId       { get; set; }
 
         public override bool EhValido()
         {
