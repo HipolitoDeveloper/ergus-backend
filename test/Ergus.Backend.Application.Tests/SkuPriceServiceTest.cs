@@ -33,9 +33,7 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Add(_skuPrice);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<SkuPrice>(actual);
             this._mockSkuPriceRepository.Verify(x => x.Add(_skuPrice), Times.Exactly(1));
         }
 
@@ -112,9 +110,7 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Update(_skuPrice);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<SkuPrice>(actual);
             this._mockSkuPriceRepository.Verify(x => x.Get(_skuPriceId, true), Times.Exactly(1));
             this._mockSkuPriceRepository.Verify(x => x.Update(_skuPrice), Times.Exactly(1));
         }

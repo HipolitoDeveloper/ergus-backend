@@ -17,6 +17,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
             this.ParentId = category.ParentId;
 
             this.Parent = category.Parent == null ? null : new CategoryResponse(category.Parent!);
+            this.Text = category.Text == null ? null : new CategoryTextResponse(category.Text);
         }
 
         public int Id               { get; set; }
@@ -26,6 +27,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public bool Active          { get; set; }
         public int? ParentId        { get; set; }
 
-        public virtual CategoryResponse? Parent { get; set; }
+        public virtual CategoryResponse? Parent     { get; set; }
+        public virtual CategoryTextResponse? Text   { get; set; }
     }
 }

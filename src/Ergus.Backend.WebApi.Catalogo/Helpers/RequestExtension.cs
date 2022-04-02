@@ -108,11 +108,20 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
             if (request == null)
                 return null;
 
+            CategoryText? text = request.Text == null ? null : CategoryText.Criar(
+                description: request.Text.Description,
+                metaTitle: request.Text.MetaTitle,
+                metaKeyword: request.Text.MetaKeyword,
+                metaDescription: request.Text.MetaDescription,
+                longDescription: request.Text.LongDescription
+            );
+
             var category = Category.Criar(
                     code: request.Code!,
                     externalCode: request.ExternalCode!,
                     name: request.Name!,
-                    parentId: request.ParentId
+                    parentId: request.ParentId,
+                    text: text
                 );
 
             return category;
@@ -123,13 +132,23 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
             if (request == null)
                 return null;
 
+            CategoryText? text = request.Text == null ? null : new CategoryText(
+                id: request.Id!,
+                description: request.Text.Description,
+                metaTitle: request.Text.MetaTitle,
+                metaKeyword: request.Text.MetaKeyword,
+                metaDescription: request.Text.MetaDescription,
+                longDescription: request.Text.LongDescription
+            );
+
             var category = new Category(
                     id: request.Id!,
                     code: request.Code!,
                     externalCode: request.ExternalCode!,
                     name: request.Name!,
                     active: request.Active,
-                    parentId: request.ParentId
+                    parentId: request.ParentId,
+                    text: text
                 );
 
             return category;

@@ -8,11 +8,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("categoria")]
-    public class Category : BaseModel, ICategory, IGeneric
+    public class Category : BaseModel, ICategory<CategoryText>, IGeneric
     {
         public Category() { }
 
-        public Category(int id, string code, string externalCode, string name, bool active, int? parentId)
+        public Category(int id, string code, string externalCode, string name, bool active, int? parentId, CategoryText? text)
         {
             Id = id;
             Code = code;
@@ -21,6 +21,8 @@ namespace Ergus.Backend.Infrastructure.Models
             Active = active;
             ParentId = parentId;
             UpdatedDate = DateTime.UtcNow;
+
+            Text = text;
         }
 
         #region [ Propriedades ]
@@ -44,6 +46,7 @@ namespace Ergus.Backend.Infrastructure.Models
         [ForeignKey(nameof(Parent))]
         public int? ParentId { get; private set; }
 
+
         [Column("cat_dt_inc")]
         public DateTime CreatedDate { get; private set; }
 
@@ -61,11 +64,14 @@ namespace Ergus.Backend.Infrastructure.Models
 
         public Category? Parent { get; private set; }
 
+        [InverseProperty(nameof(CategoryText.Category))]
+        public CategoryText? Text { get; private set; }
+
         #endregion [ FIM - Propriedades ]
 
         #region [ Metodos ]
 
-        public static Category Criar(string code, string externalCode, string name, int? parentId)
+        public static Category Criar(string code, string externalCode, string name, int? parentId, CategoryText? text)
         {
             var category = new Category();
 
@@ -81,6 +87,8 @@ namespace Ergus.Backend.Infrastructure.Models
 
             category.Active = true;
 
+            category.Text = text;
+
             return category;
         }
 
@@ -95,6 +103,10 @@ namespace Ergus.Backend.Infrastructure.Models
         public override bool EhValido()
         {
             ValidationResult = new CategoryModelValidation().Validate(this);
+
+            if (this.Text != null && ((CategoryText)this.Text).Erros.Count > 0)
+                ValidationResult.Errors.AddRange(((CategoryText)this.Text).ValidationResult.Errors.ConvertAll(e => new FluentValidation.Results.ValidationFailure(e.PropertyName, $"CategoryText: {e.ErrorMessage}", e.AttemptedValue)));
+
             return ValidationResult.IsValid;
         }
 
@@ -107,6 +119,16 @@ namespace Ergus.Backend.Infrastructure.Models
             this.Active = newCategory.Active;
             this.ParentId = newCategory.ParentId;
             this.UpdatedDate = newCategory.UpdatedDate;
+
+            if (newCategory.Text == null)
+                this.Text = null;
+            else
+            {
+                if (this.Text == null)
+                    this.Text = new CategoryText();
+
+                this.Text.MergeToUpdate(newCategory.Text);
+            }
         }
 
         #endregion [ FIM - Metodos ]

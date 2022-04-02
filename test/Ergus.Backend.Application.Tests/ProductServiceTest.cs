@@ -35,9 +35,7 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Add(_product);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<Product>(actual);
             this._mockProductRepository.Verify(x => x.Add(_product), Times.Exactly(1));
         }
 
@@ -116,9 +114,7 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Update(_product);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<Product>(actual);
             this._mockProductRepository.Verify(x => x.Get(_productId, true), Times.Exactly(1));
             this._mockProductRepository.Verify(x => x.Update(_product), Times.Exactly(1));
         }

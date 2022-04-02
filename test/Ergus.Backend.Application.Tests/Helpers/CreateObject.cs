@@ -44,7 +44,7 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
-        public static Category GetCategory(int id, int? parentId)
+        public static Category GetCategory(int id, int? parentId, CategoryText? text)
         {
             return new Category(
                 id: id,
@@ -52,7 +52,29 @@ namespace Ergus.Backend.Application.Tests.Helpers
                 externalCode: "ECOD",
                 name: "Categoria",
                 active: true,
-                parentId: parentId
+                parentId: parentId,
+                text: text
+            );
+        }
+
+        public static CategoryText GetCategoryText(int? id)
+        {
+            if (id == null)
+                return CategoryText.Criar(
+                    description: "DESC",
+                    metaTitle: "TITLE",
+                    metaKeyword: "KEYWORD",
+                    metaDescription: "META DESC",
+                    longDescription: null
+                );
+
+            return new CategoryText(
+                id: id.Value,
+                description: "DESC",
+                metaTitle: "TITLE",
+                metaKeyword: "KEYWORD",
+                metaDescription: "META DESC",
+                longDescription: null
             );
         }
 

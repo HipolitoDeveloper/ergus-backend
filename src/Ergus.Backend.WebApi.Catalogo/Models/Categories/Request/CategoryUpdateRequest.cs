@@ -2,10 +2,11 @@
 using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.Infrastructure.Models.Interfaces;
 using Ergus.Backend.Infrastructure.Validations;
+using Ergus.Backend.WebApi.Catalogo.Models.CategoryTexts.Request;
 
 namespace Ergus.Backend.WebApi.Catalogo.Models.Categories.Request
 {
-    public class CategoryUpdateRequest : BaseModel, ICategory
+    public class CategoryUpdateRequest : BaseModel, ICategory<CategoryTextUpdateRequest>
     {
         public int Id               { get; set; }
         public string? Code         { get; set; } = string.Empty;
@@ -13,6 +14,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models.Categories.Request
         public string? Name         { get; set; } = string.Empty;
         public bool Active          { get; set; }
         public int? ParentId        { get; set; }
+
+        public CategoryTextUpdateRequest? Text  { get; set; }
 
         public override bool EhValido()
         {

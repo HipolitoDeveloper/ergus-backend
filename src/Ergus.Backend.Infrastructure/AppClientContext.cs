@@ -12,6 +12,7 @@ namespace Ergus.Backend.Infrastructure
         public virtual DbSet<AdvertisementSku>? AdvertisementSkus           { get; set; }
         public virtual DbSet<AdvertisementSkuPrice>? AdvertisementSkuPrices { get; set; }
         public virtual DbSet<Category>? Categories                          { get; set; }
+        public virtual DbSet<CategoryText>? CategoryTexts                   { get; set; }
         public virtual DbSet<Integration>? Integrations                     { get; set; }
         public virtual DbSet<Metadata>? Metadatas                           { get; set; }
         public virtual DbSet<PriceList>? PriceLists                         { get; set; }

@@ -18,7 +18,8 @@ namespace Ergus.Backend.Application.Tests
 
         public CategoryServiceTest() : base()
         {
-            _category = CreateObject.GetCategory(this._categoryId, this._parentId);
+            var categoryText = CreateObject.GetCategoryText(null);
+            _category = CreateObject.GetCategory(this._categoryId, this._parentId, categoryText);
             _service = this._autoMock.Create<CategoryService>();
 
             MockGetCategory(this._parentId);
@@ -28,13 +29,13 @@ namespace Ergus.Backend.Application.Tests
         public async Task ShouldAddSuccessfully()
         {
             this._mockCategoryRepository.Setup(x => x.Add(_category)).ReturnsAsync(_category);
+            this._mockCategoryRepository.Setup(x => x.AddText(It.IsAny<CategoryText>())).ReturnsAsync(It.IsAny<CategoryText>());
 
             var actual = await _service.Add(_category);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<Category>(actual);
             this._mockCategoryRepository.Verify(x => x.Add(_category), Times.Exactly(1));
+            this._mockCategoryRepository.Verify(x => x.AddText(It.IsAny<CategoryText>()), Times.Exactly(1));
         }
 
         [Fact]
@@ -112,9 +113,7 @@ namespace Ergus.Backend.Application.Tests
 
             var actual = await _service.Update(_category);
 
-            Assert.NotNull(actual);
-            Assert.True(actual!.EhValido());
-            Assert.Empty(actual.Erros);
+            AssertHelper.AssertAddUpdate<Category>(actual);
             this._mockCategoryRepository.Verify(x => x.Get(_categoryId, true), Times.Exactly(1));
             this._mockCategoryRepository.Verify(x => x.Update(_category), Times.Exactly(1));
         }
@@ -126,7 +125,7 @@ namespace Ergus.Backend.Application.Tests
 
             this._mockCategoryRepository.Setup(x => x.Get(categoryId, true)).Returns(Task.FromResult((Category?)null));
 
-            var actual = await _service.Update(new Category(categoryId, String.Empty, String.Empty, String.Empty, true, null));
+            var actual = await _service.Update(new Category(categoryId, String.Empty, String.Empty, String.Empty, true, null, null));
 
             this._mockCategoryRepository.Verify(x => x.Get(categoryId, true), Times.Exactly(1));
             this._mockCategoryRepository.Verify(x => x.Update(_category), Times.Exactly(0));

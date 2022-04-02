@@ -21,5 +21,9 @@ namespace Ergus.Backend.Infrastructure.Models
                 return this.ValidationResult.Errors.ConvertAll(e => e.ErrorMessage);
             }
         }
+
+        [JsonIgnore]
+        [NotMapped]
+        public bool IsValid { get { return this.Erros.Count == 0; } }
     }
 }

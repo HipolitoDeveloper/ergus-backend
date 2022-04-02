@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
 using Ergus.Backend.Infrastructure.Models.Interfaces;
+using Ergus.Backend.Infrastructure.Models;
 
 namespace Ergus.Backend.Infrastructure.Validations
 {
-    public class CategoryValidation : AbstractValidator<ICategory>
+    public class CategoryValidation : AbstractValidator<ICategory<ICategoryText>>
     {
         public CategoryValidation()
         {
@@ -21,6 +22,12 @@ namespace Ergus.Backend.Infrastructure.Validations
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("O Nome é obrigatório")
                 .Length(1, 100).WithMessage("O Nome deve ter até 100 caracteres");
+
+            When(x => x.Text != null, () =>
+            {
+                RuleFor(x => x.Text)
+                    .Must(x => x!.EhValido());
+            });
         }
     }
 }

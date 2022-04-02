@@ -1,5 +1,6 @@
 ﻿using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.Infrastructure.Models.Interfaces;
+using System;
 using Xunit;
 
 namespace Ergus.Backend.Application.Tests.Helpers
@@ -13,6 +14,13 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.WasRemoved, actual.WasRemoved);
             Assert.Equal(expected.RemovedId, actual.RemovedId);
             Assert.Equal(expected.RemovedDate, actual.RemovedDate);
+        }
+
+        public static void AssertAddUpdate<T>(T? actual) where T : BaseModel
+        {
+            Assert.NotNull(actual);
+            Assert.True(actual!.IsValid, String.Join(',', actual.Erros));
+            Assert.Empty(actual.Erros);
         }
 
         public static void AssertEqual(Advertisement expected, Advertisement actual)
@@ -58,7 +66,22 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.Active, actual.Active);
             Assert.Equal(expected.ParentId, actual.ParentId);
 
+            Assert.True((expected.Text != null && actual.Text != null) || (expected.Text == null && actual.Text == null));
+
+            if (expected.Text != null && actual.Text != null)
+                AssertEqual((CategoryText)expected.Text, (CategoryText)actual.Text);
+
             AssertEqual<Category>(expected, actual);
+        }
+
+        public static void AssertEqual(CategoryText expected, CategoryText actual)
+        {
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.MetaTitle, actual.MetaTitle);
+            Assert.Equal(expected.MetaKeyword, actual.MetaKeyword);
+            Assert.Equal(expected.MetaDescription, actual.MetaDescription);
+            Assert.Equal(expected.LongDescription, actual.LongDescription);
         }
 
         public static void AssertEqual(PriceList expected, PriceList actual)

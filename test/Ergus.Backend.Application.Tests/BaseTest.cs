@@ -64,7 +64,7 @@ namespace Ergus.Backend.Application.Tests
         {
             this._mockCategoryRepository.Reset();
 
-            var category = CreateObject.GetCategory(categoryId, null);
+            var category = CreateObject.GetCategory(categoryId, null, null);
             this._mockCategoryRepository.Setup(x => x.Get(categoryId, false)).ReturnsAsync(category);
         }
 
