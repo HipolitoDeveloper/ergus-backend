@@ -7,7 +7,8 @@ namespace Ergus.Backend.Infrastructure
     public class AppClientContext : DbContext, IDbContext
     {
         #region [ Propriedades ]
-        
+
+        public virtual DbSet<Address>? Addresses                            { get; set; }
         public virtual DbSet<Advertisement>? Advertisements                 { get; set; }
         public virtual DbSet<AdvertisementSku>? AdvertisementSkus           { get; set; }
         public virtual DbSet<AdvertisementSkuPrice>? AdvertisementSkuPrices { get; set; }

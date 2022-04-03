@@ -42,7 +42,7 @@ namespace Ergus.Backend.Infrastructure.Repositories
 
         public async Task<Provider?> Get(int id, bool keepTrack)
         {
-            var query = this._context.Providers!.Where(m => m.Id == id);
+            var query = this._context.Providers!.Include(p => p.Address).Where(m => m.Id == id);
             //var sql = query.ToQueryString();
 
             if (!keepTrack)
@@ -55,11 +55,10 @@ namespace Ergus.Backend.Infrastructure.Repositories
 
         public async Task<Provider?> GetByCode(string code)
         {
-            return null;
-            //var query = this._context.Providers!.Where(p => p.Code.ToLower() == code.ToLower());
-            //var provider = await query.AsNoTracking().FirstOrDefaultAsync();
+            var query = this._context.Providers!.Where(p => p.Code.ToLower() == code.ToLower());
+            var provider = await query.AsNoTracking().FirstOrDefaultAsync();
 
-            //return provider;
+            return provider;
         }
 
         public async Task<List<Provider>> GetAll()

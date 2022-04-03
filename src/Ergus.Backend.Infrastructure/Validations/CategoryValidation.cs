@@ -4,7 +4,7 @@ using Ergus.Backend.Infrastructure.Models;
 
 namespace Ergus.Backend.Infrastructure.Validations
 {
-    public class CategoryValidation : AbstractValidator<ICategory<ICategoryText>>
+    public class CategoryValidation : AbstractValidator<ICategory<ITAddress>>
     {
         public CategoryValidation()
         {
@@ -25,8 +25,7 @@ namespace Ergus.Backend.Infrastructure.Validations
 
             When(x => x.Text != null, () =>
             {
-                RuleFor(x => x.Text)
-                    .Must(x => x!.EhValido());
+                RuleFor(x => x.Text!).SetValidator(new CategoryTextValidation("Text: "));
             });
         }
     }

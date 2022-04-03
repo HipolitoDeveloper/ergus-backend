@@ -103,10 +103,6 @@ namespace Ergus.Backend.Infrastructure.Models
         public override bool EhValido()
         {
             ValidationResult = new CategoryModelValidation().Validate(this);
-
-            if (this.Text != null && ((CategoryText)this.Text).Erros.Count > 0)
-                ValidationResult.Errors.AddRange(((CategoryText)this.Text).ValidationResult.Errors.ConvertAll(e => new FluentValidation.Results.ValidationFailure(e.PropertyName, $"CategoryText: {e.ErrorMessage}", e.AttemptedValue)));
-
             return ValidationResult.IsValid;
         }
 

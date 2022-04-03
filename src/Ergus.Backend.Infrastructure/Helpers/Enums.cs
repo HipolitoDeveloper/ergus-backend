@@ -54,6 +54,24 @@ namespace Ergus.Backend.Infrastructure.Helpers
 
     #endregion [ FIM - Anuncio ]
 
+    #region [ Fornecedor ]
+
+    public enum TipoPessoa
+    {
+        [Description("nenhum")]
+        Nenhum = 0,
+        [Description("fisica")]
+        Fisica = 1,
+        [Description("juridica")]
+        Juridica = 2,
+        [Description("governamental")]
+        Governamental = 3,
+        [Description("isento")]
+        Isento = 4,
+    }
+
+    #endregion [ FIM - Fornecedor ]
+
     #region [ Lista Preço ]
 
     public enum TipoAjuste

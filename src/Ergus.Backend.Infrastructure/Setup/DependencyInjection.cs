@@ -12,6 +12,7 @@ namespace Ergus.Backend.Infrastructure.Setup
             services.AddDbContext<AppClientContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultClient")); }, ServiceLifetime.Singleton);
             services.AddDbContext<AppServerContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultServer")); }, ServiceLifetime.Singleton);
 
+            services.AddSingleton<IAddressRepository, AddressRepository>();
             services.AddSingleton<IAdvertisementRepository, AdvertisementRepository>();
             services.AddSingleton<IAdvertisementSkuRepository, AdvertisementSkuRepository>();
             services.AddSingleton<IAdvertisementSkuPriceRepository, AdvertisementSkuPriceRepository>();

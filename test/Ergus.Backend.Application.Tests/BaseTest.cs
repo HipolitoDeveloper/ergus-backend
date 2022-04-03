@@ -20,7 +20,8 @@ namespace Ergus.Backend.Application.Tests
         private Mock<AppServerContext> _appServerContext;
 
         protected AutoMock _autoMock;
-
+        
+        protected Mock<IAddressRepository> _mockAddressRepository;
         protected Mock<IAdvertisementRepository> _mockAdvertisementRepository;
         protected Mock<IAdvertisementSkuRepository> _mockAdvertisementSkuRepository;
         protected Mock<IAdvertisementSkuPriceRepository> _mockAdvertisementSkuPriceRepository;
@@ -51,6 +52,14 @@ namespace Ergus.Backend.Application.Tests
         #region [ Metodos ]
 
         #region [ Mocks ]
+
+        public void MockGetAddress(int addressId)
+        {
+            this._mockAddressRepository.Reset();
+
+            var address = CreateObject.GetAddress(addressId);
+            this._mockAddressRepository.Setup(x => x.Get(addressId, false)).ReturnsAsync(address);
+        }
 
         public void MockGetAdvertisementSku(int advertisementSkuId)
         {
@@ -112,7 +121,7 @@ namespace Ergus.Backend.Application.Tests
         {
             this._mockProviderRepository.Reset();
 
-            var provider = CreateObject.GetProvider(providerId);
+            var provider = CreateObject.GetProvider(providerId, null);
             this._mockProviderRepository.Setup(x => x.Get(providerId, false)).ReturnsAsync(provider);
         }
 
@@ -141,6 +150,7 @@ namespace Ergus.Backend.Application.Tests
 
             #region [ Mock Repositories ]
 
+            this._mockAddressRepository = this._autoMock.Mock<IAddressRepository>();
             this._mockAdvertisementRepository = this._autoMock.Mock<IAdvertisementRepository>();
             this._mockAdvertisementSkuRepository = this._autoMock.Mock<IAdvertisementSkuRepository>();
             this._mockAdvertisementSkuPriceRepository = this._autoMock.Mock<IAdvertisementSkuPriceRepository>();
@@ -159,6 +169,15 @@ namespace Ergus.Backend.Application.Tests
             #endregion [ FIM - Mock Repositories ]
 
             #region [ Mock DbContext e Validators ]
+
+            if (_mockAddressRepository != null)
+            {
+                _appClientContext.Setup(x => x.Addresses).Returns(new Mock<DbSet<Address>>().Object);
+                _mockAddressRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
+                _mockAddressRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+                StaticAddressExistsValidator.Configure(_mockAddressRepository.Object);
+                StaticAddressCodeBeUniqueValidator.Configure(_mockAddressRepository.Object);
+            }
 
             if (_mockAdvertisementRepository != null)
             {

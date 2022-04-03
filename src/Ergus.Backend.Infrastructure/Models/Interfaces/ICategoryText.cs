@@ -1,6 +1,6 @@
 ﻿namespace Ergus.Backend.Infrastructure.Models.Interfaces
 {
-    public interface ICategoryText
+    public interface ITAddress
     {
         string? Description     { get; }
         string? MetaTitle       { get; }

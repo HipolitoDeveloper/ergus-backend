@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Ergus.Backend.Infrastructure.Models
 {
     [Table("categoria_texto")]
-    public class CategoryText : BaseModel, ICategoryText
+    public class CategoryText : BaseModel, ITAddress
     {
         public CategoryText() { }
 

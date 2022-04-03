@@ -23,6 +23,23 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Empty(actual.Erros);
         }
 
+        public static void AssertEqual(Address expected, Address actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.CityCode, actual.CityCode);
+            Assert.Equal(expected.District, actual.District);
+            Assert.Equal(expected.Complement, actual.Complement);
+            Assert.Equal(expected.Number, actual.Number);
+            Assert.Equal(expected.Reference, actual.Reference);
+            Assert.Equal(expected.ZipCode, actual.ZipCode);
+            Assert.Equal(expected.AddressValue, actual.AddressValue);
+
+            AssertEqual<Address>(expected, actual);
+        }
+
         public static void AssertEqual(Advertisement expected, Advertisement actual)
         {
             Assert.True(actual != null);
@@ -131,6 +148,30 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.ProductId, actual.ProductId);
 
             AssertEqual<ProductAttribute>(expected, actual);
+        }
+
+        public static void AssertEqual(Provider expected, Provider actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Email, actual.Email);
+            Assert.Equal(expected.Contact, actual.Contact);
+            Assert.Equal(expected.Site, actual.Site);
+            Assert.Equal(expected.FiscalDocument, actual.FiscalDocument);
+            Assert.Equal(expected.Document, actual.Document);
+            Assert.Equal(expected.Active, actual.Active);
+            Assert.Equal(expected.PersonType, actual.PersonType);
+            Assert.Equal(expected.AddressId, actual.AddressId);
+
+            Assert.True((expected.Address != null && actual.Address != null) || (expected.Address == null && actual.Address == null));
+
+            if (expected.Address != null && actual.Address != null)
+                AssertEqual((Address)expected.Address, (Address)actual.Address);
+
+            AssertEqual<Provider>(expected, actual);
         }
 
         public static void AssertEqual(Sku expected, Sku actual)

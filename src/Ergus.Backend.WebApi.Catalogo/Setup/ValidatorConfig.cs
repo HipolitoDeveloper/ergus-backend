@@ -7,6 +7,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
     {
         public static void UseValidatorConfigigure(this IApplicationBuilder app)
         {
+            var addressRepository = app.ApplicationServices.GetService<IAddressRepository>();
+            if (addressRepository != null)
+            {
+                StaticAddressExistsValidator.Configure(addressRepository);
+                StaticAddressCodeBeUniqueValidator.Configure(addressRepository);
+            }
+
             var advertisementRepository = app.ApplicationServices.GetService<IAdvertisementRepository>();
             if (advertisementRepository != null)
             {

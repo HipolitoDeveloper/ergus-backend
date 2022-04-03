@@ -6,7 +6,7 @@ using Ergus.Backend.Infrastructure.Validations;
 
 namespace Ergus.Backend.WebApi.Catalogo.Models.CategoryTexts.Request
 {
-    public class CategoryTextAddRequest : BaseModel, ICategoryText
+    public class CategoryTextAddRequest : BaseModel, ITAddress
     {
         public string? Description      { get; set; } = string.Empty;
         public string? MetaTitle        { get; set; } = string.Empty;

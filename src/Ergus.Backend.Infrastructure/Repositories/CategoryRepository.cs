@@ -7,12 +7,10 @@ namespace Ergus.Backend.Infrastructure.Repositories
     public interface ICategoryRepository : IRepository
     {
         Task<Category> Add(Category category);
-        Task<CategoryText> AddText(CategoryText categoryText);
         Task<Category?> Get(int id, bool keepTrack);
         Task<Category?> GetByCode(string code);
         Task<List<Category>> GetAll();
         Task<Category> Update(Category category);
-        Task<CategoryText> UpdateText(CategoryText categoryText);
     }
 
     internal class CategoryRepository : ICategoryRepository
@@ -42,13 +40,6 @@ namespace Ergus.Backend.Infrastructure.Repositories
             var createdCategory = await this._context.Categories!.AddAsync(category);
 
             return createdCategory.Entity;
-        }
-
-        public async Task<CategoryText> AddText(CategoryText categoryText)
-        {
-            var createdCategoryText = await this._context.CategoryTexts!.AddAsync(categoryText);
-
-            return createdCategoryText.Entity;
         }
 
         public async Task<Category?> Get(int id, bool keepTrack)
@@ -85,13 +76,6 @@ namespace Ergus.Backend.Infrastructure.Repositories
             this._context.Categories!.Update(category);
 
             return await Task.FromResult(category);
-        }
-
-        public async Task<CategoryText> UpdateText(CategoryText categoryText)
-        {
-            this._context.CategoryTexts!.Update(categoryText);
-
-            return await Task.FromResult(categoryText);
         }
 
         public void Dispose()

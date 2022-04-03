@@ -147,11 +147,37 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
-        public static Provider GetProvider(int id)
+        public static Address GetAddress(int? id)
+        {
+            return new Address(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                cityCode: "CITY",
+                district: "Bairro",
+                complement: "Complemento",
+                number: "123",
+                reference: "Referencia",
+                zipCode: "12345-000",
+                addressValue: "Rua Logradouro"
+            );
+        }
+
+        public static Provider GetProvider(int id, Address? address)
         {
             return new Provider(
                 id: id,
-                code: "COD"
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Fornecedor",
+                email: "a@b.com",
+                contact: "Contato",
+                site: "Site",
+                fiscalDocument: "Doc Fiscal",
+                document: "Documento",
+                personType: Infrastructure.Helpers.TipoPessoa.Fisica,
+                active: true,
+                address: address
             );
         }
 

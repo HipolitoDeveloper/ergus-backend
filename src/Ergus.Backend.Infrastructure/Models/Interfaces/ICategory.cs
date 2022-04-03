@@ -1,6 +1,6 @@
 ﻿namespace Ergus.Backend.Infrastructure.Models.Interfaces
 {
-    public interface ICategory<out TCategoryText> where TCategoryText : ICategoryText
+    public interface ICategory<out TCategoryText> where TCategoryText : ITAddress
     {
         string? Code            { get; }
         string? ExternalCode    { get; }

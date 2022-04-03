@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Ergus.Backend.Core.Helpers
 {
@@ -36,6 +37,15 @@ namespace Ergus.Backend.Core.Helpers
             }
 
             return default;
+        }
+
+        public static string ToOnlyNumbers(this string texto)
+        {
+            if (String.IsNullOrEmpty(texto))
+                return String.Empty;
+
+            Regex regexObj = new Regex(@"[^\d]");
+            return regexObj.Replace(texto, "");
         }
     }
 }

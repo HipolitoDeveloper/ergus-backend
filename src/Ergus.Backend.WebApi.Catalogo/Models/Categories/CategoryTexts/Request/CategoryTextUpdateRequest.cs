@@ -5,7 +5,7 @@ using Ergus.Backend.Infrastructure.Validations;
 
 namespace Ergus.Backend.WebApi.Catalogo.Models.CategoryTexts.Request
 {
-    public class CategoryTextUpdateRequest : BaseModel, ICategoryText
+    public class CategoryTextUpdateRequest : BaseModel, ITAddress
     {
         public int Id                   { get; set; }
         public string? Description      { get; set; } = string.Empty;

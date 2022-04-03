@@ -29,13 +29,11 @@ namespace Ergus.Backend.Application.Tests
         public async Task ShouldAddSuccessfully()
         {
             this._mockCategoryRepository.Setup(x => x.Add(_category)).ReturnsAsync(_category);
-            this._mockCategoryRepository.Setup(x => x.AddText(It.IsAny<CategoryText>())).ReturnsAsync(It.IsAny<CategoryText>());
 
             var actual = await _service.Add(_category);
 
             AssertHelper.AssertAddUpdate<Category>(actual);
             this._mockCategoryRepository.Verify(x => x.Add(_category), Times.Exactly(1));
-            this._mockCategoryRepository.Verify(x => x.AddText(It.IsAny<CategoryText>()), Times.Exactly(1));
         }
 
         [Fact]
