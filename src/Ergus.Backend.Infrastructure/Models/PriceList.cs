@@ -41,10 +41,10 @@ namespace Ergus.Backend.Infrastructure.Models
         [Column("lp_codigo_ext")]
         public string ExternalCode { get; private set; } = string.Empty;
 
-        [Column("lp_data_inicial")]
+        [Column("lp_data_inicial", TypeName = SqlUtils.VARCHAR)]
         public DateTime InitDate { get; private set; } = DateTime.Now.AddYears(-10);
 
-        [Column("lp_data_final")]
+        [Column("lp_data_final", TypeName = SqlUtils.VARCHAR)]
         public DateTime EndDate { get; private set; } = DateTime.Now.AddYears(10);
 
         [Column("lp_nome")]
