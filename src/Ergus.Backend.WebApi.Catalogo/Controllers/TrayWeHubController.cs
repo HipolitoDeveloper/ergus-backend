@@ -59,12 +59,20 @@ namespace Ergus.Backend.WebApi.Catalogo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationRequest paginationRequest)
         {
-            var productAttrs = await this._productAttributeService.GetAll();
+            var productAttrs = await this._productAttributeService.GetAll(paginationRequest.Page, paginationRequest.PageSize, paginationRequest.DisablePagination);
 
             var response = productAttrs.ConvertAll(c => new ProductAttributeResponse(c));
             return new ApiResult(new Saida(true, new List<string>(), response));
+        }
+
+        [HttpGet]
+        [Route("get-ids")]
+        public async Task<IActionResult> GetAllIds()
+        {
+            var ids = await this._productAttributeService.GetAllIds();
+            return new ApiResult(new Saida(true, new List<string>(), ids));
         }
 
         [HttpPut]

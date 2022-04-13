@@ -8,7 +8,8 @@ namespace Ergus.Backend.Application.Services
         Task<Category?> Add(Category category);
         Task<Category?> Delete(int id);
         Task<Category?> Get(int id);
-        Task<List<Category>> GetAll();
+        Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Category?> Update(Category category);
     }
 
@@ -54,9 +55,14 @@ namespace Ergus.Backend.Application.Services
             return await this._categoryRepository.Get(id, false);
         }
 
-        public async Task<List<Category>> GetAll()
+        public async Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            return await this._categoryRepository.GetAll();
+            return await this._categoryRepository.GetAll(page, pageSize, disablePagination);
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            return await this._categoryRepository.GetAllIds();
         }
 
         public async Task<Category?> Update(Category category)

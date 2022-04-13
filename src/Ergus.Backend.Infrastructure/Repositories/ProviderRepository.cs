@@ -9,7 +9,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<Provider> Add(Provider provider);
         Task<Provider?> Get(int id, bool keepTrack);
         Task<Provider?> GetByCode(string code);
-        Task<List<Provider>> GetAll();
+        Task<List<Provider>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Provider> Update(Provider provider);
     }
 
@@ -61,12 +62,24 @@ namespace Ergus.Backend.Infrastructure.Repositories
             return provider;
         }
 
-        public async Task<List<Provider>> GetAll()
+        public async Task<List<Provider>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            var query = this._context.Providers!;
-            var providers = await query.AsNoTracking().ToListAsync();
+            var query = this._context.Providers;
+            var providers = query.OrderBy(q => q.Name).AsNoTracking();
 
-            return providers;
+            if (disablePagination)
+                return await providers.ToListAsync();
+
+            return await providers
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            var ids = await this._context.Providers!.Select(a => a.Id).OrderBy(q => q).ToListAsync();
+            return ids;
         }
 
         public async Task<Provider> Update(Provider provider)

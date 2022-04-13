@@ -9,7 +9,8 @@ namespace Ergus.Backend.Application.Services
         Task<Product?> Add(Product product);
         Task<Product?> Delete(int id);
         Task<Product?> Get(int id);
-        Task<List<Product>> GetAll();
+        Task<List<Product>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Product?> Update(Product product);
     }
 
@@ -55,9 +56,14 @@ namespace Ergus.Backend.Application.Services
             return await this._productRepository.Get(id, false);
         }
 
-        public async Task<List<Product>> GetAll()
+        public async Task<List<Product>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            return await this._productRepository.GetAll();
+            return await this._productRepository.GetAll(page, pageSize, disablePagination);
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            return await this._productRepository.GetAllIds();
         }
 
         public async Task<Product?> Update(Product product)

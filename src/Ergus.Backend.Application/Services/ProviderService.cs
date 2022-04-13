@@ -8,7 +8,8 @@ namespace Ergus.Backend.Application.Services
         Task<Provider?> Add(Provider provider);
         Task<Provider?> Delete(int id);
         Task<Provider?> Get(int id);
-        Task<List<Provider>> GetAll();
+        Task<List<Provider>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Provider?> Update(Provider provider);
     }
 
@@ -54,9 +55,14 @@ namespace Ergus.Backend.Application.Services
             return await this._providerRepository.Get(id, false);
         }
 
-        public async Task<List<Provider>> GetAll()
+        public async Task<List<Provider>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            return await this._providerRepository.GetAll();
+            return await this._providerRepository.GetAll(page, pageSize, disablePagination);
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            return await this._providerRepository.GetAllIds();
         }
 
         public async Task<Provider?> Update(Provider provider)

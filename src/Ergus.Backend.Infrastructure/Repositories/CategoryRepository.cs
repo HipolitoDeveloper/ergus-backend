@@ -9,7 +9,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<Category> Add(Category category);
         Task<Category?> Get(int id, bool keepTrack);
         Task<Category?> GetByCode(string code);
-        Task<List<Category>> GetAll();
+        Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Category> Update(Category category);
     }
 
@@ -63,12 +64,24 @@ namespace Ergus.Backend.Infrastructure.Repositories
             return category;
         }
 
-        public async Task<List<Category>> GetAll()
+        public async Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
             var query = this._context.Categories!.Include(c => c.Parent);
-            var categories = await query.AsNoTracking().ToListAsync();
+            var categories = query.OrderBy(q => q.Name).AsNoTracking();
 
-            return categories;
+            if (disablePagination)
+                return await categories.ToListAsync();
+
+            return await categories
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            var categoryIds = await this._context.Categories!.Select(c => c.Id).OrderBy(q => q).ToListAsync();
+            return categoryIds;
         }
 
         public async Task<Category> Update(Category category)

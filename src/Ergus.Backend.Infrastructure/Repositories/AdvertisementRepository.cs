@@ -9,7 +9,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<Advertisement> Add(Advertisement advertisement);
         Task<Advertisement?> Get(int id, bool keepTrack);
         Task<Advertisement?> GetByCode(string code);
-        Task<List<Advertisement>> GetAll();
+        Task<List<Advertisement>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Advertisement> Update(Advertisement advertisement);
     }
 
@@ -61,12 +62,24 @@ namespace Ergus.Backend.Infrastructure.Repositories
             return advertisement;
         }
 
-        public async Task<List<Advertisement>> GetAll()
+        public async Task<List<Advertisement>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            var query = this._context.Advertisements!;
-            var advertisements = await query.AsNoTracking().ToListAsync();
+            var query = this._context.Advertisements;
+            var advertisements = query.OrderBy(q => q.Name).AsNoTracking();
 
-            return advertisements;
+            if (disablePagination)
+                return await advertisements.ToListAsync();
+
+            return await advertisements
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            var ids = await this._context.Advertisements!.Select(a => a.Id).OrderBy(q => q).ToListAsync();
+            return ids;
         }
 
         public async Task<Advertisement> Update(Advertisement advertisement)

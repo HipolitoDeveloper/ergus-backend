@@ -9,7 +9,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<SkuPrice> Add(SkuPrice skuPrice);
         Task<SkuPrice?> Get(int id, bool keepTrack);
         Task<SkuPrice?> GetByCode(string code);
-        Task<List<SkuPrice>> GetAll();
+        Task<List<SkuPrice>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<SkuPrice> Update(SkuPrice skuPrice);
     }
 
@@ -61,12 +62,24 @@ namespace Ergus.Backend.Infrastructure.Repositories
             return skuPrice;
         }
 
-        public async Task<List<SkuPrice>> GetAll()
+        public async Task<List<SkuPrice>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            var query = this._context.SkuPrices!;
-            var skuPrices = await query.AsNoTracking().ToListAsync();
+            var query = this._context.SkuPrices;
+            var skuPrices = query.OrderBy(q => q.Id).AsNoTracking();
 
-            return skuPrices;
+            if (disablePagination)
+                return await skuPrices.ToListAsync();
+
+            return await skuPrices
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            var ids = await this._context.SkuPrices!.Select(a => a.Id).OrderBy(q => q).ToListAsync();
+            return ids;
         }
 
         public async Task<SkuPrice> Update(SkuPrice skuPrice)

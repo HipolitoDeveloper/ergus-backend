@@ -88,11 +88,11 @@ namespace Ergus.Backend.Application.Tests
         {
             var expected = new List<Advertisement>() { _advertisement };
 
-            this._mockAdvertisementRepository.Setup(x => x.GetAll()).ReturnsAsync(expected);
+            this._mockAdvertisementRepository.Setup(x => x.GetAll(0, 0, true)).ReturnsAsync(expected);
 
-            var actual = await _service.GetAll();
+            var actual = await _service.GetAll(0, 0, true);
 
-            this._mockAdvertisementRepository.Verify(x => x.GetAll(), Times.Exactly(1));
+            this._mockAdvertisementRepository.Verify(x => x.GetAll(0, 0, true), Times.Exactly(1));
 
             Assert.NotNull(actual);
             Assert.NotEmpty(actual);

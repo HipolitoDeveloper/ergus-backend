@@ -8,7 +8,8 @@ namespace Ergus.Backend.Application.Services
         Task<SkuPrice?> Add(SkuPrice skuPrice);
         Task<SkuPrice?> Delete(int id);
         Task<SkuPrice?> Get(int id);
-        Task<List<SkuPrice>> GetAll();
+        Task<List<SkuPrice>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<SkuPrice?> Update(SkuPrice skuPrice);
     }
 
@@ -54,9 +55,14 @@ namespace Ergus.Backend.Application.Services
             return await this._skuPriceRepository.Get(id, false);
         }
 
-        public async Task<List<SkuPrice>> GetAll()
+        public async Task<List<SkuPrice>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            return await this._skuPriceRepository.GetAll();
+            return await this._skuPriceRepository.GetAll(page, pageSize, disablePagination);
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            return await this._skuPriceRepository.GetAllIds();
         }
 
         public async Task<SkuPrice?> Update(SkuPrice skuPrice)
