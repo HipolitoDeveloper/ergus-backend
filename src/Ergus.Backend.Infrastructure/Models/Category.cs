@@ -156,6 +156,14 @@ namespace Ergus.Backend.Infrastructure.Models
             RuleFor(x => x)
                 .NotEmpty()
                 .IsCategoryCodeUnique().WithMessage(x => $"O Código {x.Code} já existe no banco de dados");
+
+            When(x => x.ParentId.HasValue, () =>
+            {
+                RuleFor(x => x.ParentId)
+                    .Cascade(CascadeMode.Stop)
+                    .NotEqual(x => x.Id).WithMessage("O Código da Categoria Pai não pode ser igual ao Código da Categoria")
+                    .CategoryExists().WithMessage(x => $"O ParentId {x.ParentId} não faz referência a nenhuma categoria no banco de dados");
+            });
         }
     }
 }

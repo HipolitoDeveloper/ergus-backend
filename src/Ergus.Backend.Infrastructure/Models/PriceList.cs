@@ -179,6 +179,8 @@ namespace Ergus.Backend.Infrastructure.Models
             When(x => x.ParentId.HasValue, () =>
             {
                 RuleFor(x => x.ParentId)
+                    .Cascade(CascadeMode.Stop)
+                    .NotEqual(x => x.Id).WithMessage("O Código da Lista de Preço Pai não pode ser igual ao Código da Lista de Preço")
                     .PriceListExists().WithMessage(x => $"O ParentId {x.ParentId} não faz referência a nenhuma lista de preço no banco de dados");
             });
         }
