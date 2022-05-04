@@ -5,6 +5,7 @@ using Ergus.Backend.WebApi.Catalogo.Models.Advertisements.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.AdvertisementSkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.PriceLists.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Producers.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Products.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Providers.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.SkuPrices.Request;
@@ -206,6 +207,91 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
 
         #endregion [ FIM - PriceList ]
 
+        #region [ Producer ]
+
+        public static Producer? ToProducer(this ProducerAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            Address? address = request.Address == null ? null : Address.Criar(
+                code: request.Address?.Code!,
+                externalCode: request.Address?.ExternalCode!,
+                cityCode: request.Address?.CityCode!,
+                district: request.Address?.District!,
+                complement: request.Address?.Complement!,
+                number: request.Address?.Number!,
+                reference: request.Address?.Reference!,
+                zipCode: request.Address?.ZipCode!,
+                addressValue: request.Address?.AddressValue!
+            );
+
+            if (address == null && request.AddressId != null)
+            {
+                address = new Address();
+                address.DefinirId(request.AddressId.Value);
+            }
+
+            var provider = Producer.Criar(
+                code: request.Code!,
+                externalCode: request.ExternalCode!,
+                name: request.Name!,
+                email: request.Email!,
+                contact: request.Contact!,
+                site: request.Site!,
+                fiscalDocument: request.FiscalDocument!,
+                document: request.Document!,
+                personType: request.PersonType?.GetEnumValueFromDescription<TipoPessoa>() ?? TipoPessoa.Nenhum,
+                address: address
+            );
+
+            return provider;
+        }
+
+        public static Producer? ToProducer(this ProducerUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            Address? address = request.Address == null ? null : new Address(
+                id: request.Address?.Id!,
+                code: request.Address?.Code!,
+                externalCode: request.Address?.ExternalCode!,
+                cityCode: request.Address?.CityCode!,
+                district: request.Address?.District!,
+                complement: request.Address?.Complement!,
+                number: request.Address?.Number!,
+                reference: request.Address?.Reference!,
+                zipCode: request.Address?.ZipCode!,
+                addressValue: request.Address?.AddressValue!
+            );
+
+            if (address == null && request.AddressId != null)
+            {
+                address = new Address();
+                address.DefinirId(request.AddressId.Value);
+            }
+
+            var provider = new Producer(
+                id: request.Id!,
+                code: request.Code!,
+                externalCode: request.ExternalCode!,
+                name: request.Name!,
+                email: request.Email!,
+                contact: request.Contact!,
+                site: request.Site!,
+                fiscalDocument: request.FiscalDocument!,
+                document: request.Document!,
+                personType: request.PersonType?.GetEnumValueFromDescription<TipoPessoa>() ?? TipoPessoa.Nenhum,
+                active: request.Active,
+                address: address
+            );
+
+            return provider;
+        }
+
+        #endregion [ FIM - Producer ]
+
         #region [ Product ]
 
         public static Product? ToProduct(this ProductAddRequest request)
@@ -306,6 +392,12 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
                 addressValue: request.Address?.AddressValue!
             );
 
+            if (address == null && request.AddressId != null)
+            {
+                address = new Address();
+                address.DefinirId(request.AddressId.Value);
+            }
+
             var provider = Provider.Criar(
                 code: request.Code!,
                 externalCode: request.ExternalCode!,
@@ -340,6 +432,12 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
                 addressValue: request.Address?.AddressValue!
             );
 
+            if (address == null && request.AddressId != null)
+            {
+                address = new Address();
+                address.DefinirId(request.AddressId.Value);
+            }
+
             var provider = new Provider(
                 id: request.Id!,
                 code: request.Code!,
@@ -358,7 +456,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
             return provider;
         }
 
-        #endregion [ FIM - Category ]
+        #endregion [ FIM - Provider ]
 
         #region [ Sku ]
 

@@ -9,7 +9,8 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<Producer> Add(Producer producer);
         Task<Producer?> Get(int id, bool keepTrack);
         Task<Producer?> GetByCode(string code);
-        Task<List<Producer>> GetAll();
+        Task<List<Producer>> GetAll(int page, int pageSize, bool disablePagination = false);
+        Task<List<int>> GetAllIds();
         Task<Producer> Update(Producer producer);
     }
 
@@ -42,7 +43,7 @@ namespace Ergus.Backend.Infrastructure.Repositories
 
         public async Task<Producer?> Get(int id, bool keepTrack)
         {
-            var query = this._context.Producers!.Where(m => m.Id == id);
+            var query = this._context.Producers!.Include(p => p.Address).Where(m => m.Id == id);
             //var sql = query.ToQueryString();
 
             if (!keepTrack)
@@ -55,19 +56,30 @@ namespace Ergus.Backend.Infrastructure.Repositories
 
         public async Task<Producer?> GetByCode(string code)
         {
-            return null;
-            //var query = this._context.Producers!.Where(p => p.Code.ToLower() == code.ToLower());
-            //var producer = await query.AsNoTracking().FirstOrDefaultAsync();
+            var query = this._context.Producers!.Where(p => p.Code.ToLower() == code.ToLower());
+            var producer = await query.AsNoTracking().FirstOrDefaultAsync();
 
-            //return producer;
+            return producer;
         }
 
-        public async Task<List<Producer>> GetAll()
+        public async Task<List<Producer>> GetAll(int page, int pageSize, bool disablePagination = false)
         {
-            var query = this._context.Producers!;
-            var producers = await query.AsNoTracking().ToListAsync();
+            var query = this._context.Producers;
+            var producers = query.OrderBy(q => q.Name).AsNoTracking();
 
-            return producers;
+            if (disablePagination)
+                return await producers.ToListAsync();
+
+            return await producers
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+        }
+
+        public async Task<List<int>> GetAllIds()
+        {
+            var ids = await this._context.Producers!.Select(a => a.Id).OrderBy(q => q).ToListAsync();
+            return ids;
         }
 
         public async Task<Producer> Update(Producer producer)

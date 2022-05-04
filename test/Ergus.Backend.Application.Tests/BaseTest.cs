@@ -105,7 +105,7 @@ namespace Ergus.Backend.Application.Tests
         {
             this._mockProducerRepository.Reset();
 
-            var producer = CreateObject.GetProducer(producerId);
+            var producer = CreateObject.GetProducer(producerId, null);
             this._mockProducerRepository.Setup(x => x.Get(producerId, false)).ReturnsAsync(producer);
         }
 

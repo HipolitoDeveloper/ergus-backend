@@ -11,6 +11,7 @@ namespace Ergus.Backend.Application.Setup
             services.AddSingleton<IAdvertisementSkuPriceService, AdvertisementSkuPriceService>();
             services.AddSingleton<ICategoryService, CategoryService>();
             services.AddSingleton<IPriceListService, PriceListService>();
+            services.AddSingleton<IProducerService, ProducerService>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IProductAttributeService, ProductAttributeService>();
             services.AddSingleton<IProviderService, ProviderService>();

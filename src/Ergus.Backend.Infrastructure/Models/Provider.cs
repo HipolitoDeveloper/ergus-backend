@@ -30,8 +30,12 @@ namespace Ergus.Backend.Infrastructure.Models
 
             if (address != null)
             {
-                this.Address = (Address)address;
-                this.AddressId = this.Address.Id;
+                var localAddress = (Address)address;
+
+                if (!address.OnlyId)
+                    this.Address = localAddress;
+
+                this.AddressId = localAddress.Id;
             }
         }
 
@@ -110,6 +114,7 @@ namespace Ergus.Backend.Infrastructure.Models
             provider.FiscalDocument = fiscalDocument;
             provider.Document = document;
             provider.PersonType = personType.DescriptionAttr();
+            provider.Active = true;
             provider.RemovedId = 0;
             provider.CreatedDate = DateTime.UtcNow;
             provider.UpdatedDate = DateTime.UtcNow;
@@ -117,8 +122,12 @@ namespace Ergus.Backend.Infrastructure.Models
 
             if (address != null)
             {
-                provider.Address = (Address)address;
-                provider.AddressId = provider.Address.Id;
+                var localAddress = (Address)address;
+
+                if (!address.OnlyId)
+                    provider.Address = localAddress;
+
+                provider.AddressId = localAddress.Id;
             }
 
             provider.Active = true;
@@ -157,7 +166,10 @@ namespace Ergus.Backend.Infrastructure.Models
             this.Active = newProvider.Active;
 
             if (newProvider.Address == null)
+            {
                 this.Address = null;
+                this.AddressId = newProvider.AddressId;
+            }
             else
             {
                 if (this.Address == null)
@@ -197,6 +209,12 @@ namespace Ergus.Backend.Infrastructure.Models
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .IsProviderCodeUnique().WithMessage(x => $"O Código {x.Code} já existe no banco de dados");
+
+            When(x => x.AddressId.HasValue, () =>
+            {
+                RuleFor(x => x.AddressId)
+                    .AddressExists().WithMessage(x => $"O AddressId {x.AddressId} não faz referência a nenhum endereço no banco de dados");
+            });
         }
     }
 }

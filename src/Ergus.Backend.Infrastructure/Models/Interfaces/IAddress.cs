@@ -12,6 +12,8 @@
         string? ZipCode         { get; }
         string? AddressValue    { get; }
 
+        bool OnlyId             { get; }
+
         bool EhValido();
     }
 }

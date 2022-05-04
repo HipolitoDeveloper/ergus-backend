@@ -23,6 +23,8 @@ namespace Ergus.Backend.Infrastructure.Models
             Reference = reference;
             ZipCode = zipCode;
             AddressValue = addressValue;
+
+            this.OnlyId = false;
         }
 
         #region [ Propriedades ]
@@ -72,6 +74,9 @@ namespace Ergus.Backend.Infrastructure.Models
         [Column("end_dt_rem")]
         public DateTime? RemovedDate { get; private set; }
 
+        [NotMapped]
+        public bool OnlyId { get; private set; }
+
         #endregion [ FIM - Propriedades ]
 
         #region [ Metodos ]
@@ -95,6 +100,8 @@ namespace Ergus.Backend.Infrastructure.Models
             address.UpdatedDate = DateTime.UtcNow;
             address.WasRemoved = false;
 
+            address.OnlyId = false;
+
             return address;
         }
 
@@ -103,6 +110,12 @@ namespace Ergus.Backend.Infrastructure.Models
             this.RemovedId = removedId;
             this.RemovedDate = this.UpdatedDate = DateTime.UtcNow;
             this.WasRemoved = true;
+        }
+
+        public void DefinirId(int id)
+        {
+            this.Id = id;
+            this.OnlyId = true;
         }
 
         public override bool EhValido()
@@ -124,6 +137,8 @@ namespace Ergus.Backend.Infrastructure.Models
             this.ZipCode = newAddress.ZipCode;
             this.AddressValue = newAddress.AddressValue;
             this.UpdatedDate = newAddress.UpdatedDate;
+
+            this.OnlyId = false;
         }
 
         #endregion [ FIM - Metodos ]

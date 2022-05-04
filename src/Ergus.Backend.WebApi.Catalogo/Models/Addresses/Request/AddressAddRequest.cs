@@ -17,6 +17,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Models.Addresses.Request
         public string? Reference    { get; set; } = string.Empty;
         public string? ZipCode      { get; set; }
         public string? AddressValue { get; set; }
+        public bool OnlyId          { get; set; } = false;
 
         public override bool EhValido()
         {

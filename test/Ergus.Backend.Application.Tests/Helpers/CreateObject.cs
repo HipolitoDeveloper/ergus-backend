@@ -5,6 +5,22 @@ namespace Ergus.Backend.Application.Tests.Helpers
 {
     internal static class CreateObject
     {
+        public static Address GetAddress(int? id)
+        {
+            return new Address(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                cityCode: "CITY",
+                district: "Bairro",
+                complement: "Complemento",
+                number: "123",
+                reference: "Referencia",
+                zipCode: "12345-000",
+                addressValue: "Rua Logradouro"
+            );
+        }
+
         public static Advertisement GetAdvertisement(int id, int? integrationId, int? productId)
         {
             return new Advertisement(
@@ -111,11 +127,21 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
-        public static Producer GetProducer(int id)
+        public static Producer GetProducer(int id, Address? address)
         {
             return new Producer(
                 id: id,
-                code: "COD"
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Fornecedor",
+                email: "a@b.com",
+                contact: "Contato",
+                site: "Site",
+                fiscalDocument: "Doc Fiscal",
+                document: "Documento",
+                personType: Infrastructure.Helpers.TipoPessoa.Fisica,
+                active: true,
+                address: address
             );
         }
 
@@ -144,22 +170,6 @@ namespace Ergus.Backend.Application.Tests.Helpers
                 externalCode: "ECOD",
                 metadataId: metadataId,
                 productId: productId
-            );
-        }
-
-        public static Address GetAddress(int? id)
-        {
-            return new Address(
-                id: id,
-                code: "COD",
-                externalCode: "ECOD",
-                cityCode: "CITY",
-                district: "Bairro",
-                complement: "Complemento",
-                number: "123",
-                reference: "Referencia",
-                zipCode: "12345-000",
-                addressValue: "Rua Logradouro"
             );
         }
 

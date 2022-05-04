@@ -5,9 +5,9 @@ using Ergus.Backend.Infrastructure.Models.Interfaces;
 
 namespace Ergus.Backend.Infrastructure.Validations
 {
-    public class ProviderValidation : AbstractValidator<IProvider<IAddress>>
+    public class ProducerValidation : AbstractValidator<IProducer<IAddress>>
     {
-        public ProviderValidation()
+        public ProducerValidation()
         {
             RuleFor(x => x.Code)
                 .Cascade(CascadeMode.Stop)
