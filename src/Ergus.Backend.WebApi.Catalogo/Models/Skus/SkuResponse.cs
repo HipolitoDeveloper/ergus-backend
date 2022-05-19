@@ -23,6 +23,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
             this.Cost = sku.Cost;
             this.ProductId = sku.ProductId;
 
+            this.Active = !sku.WasRemoved;
+
             this.Product = sku.Product == null ? null : new ProductResponse(sku.Product!);
         }
 
@@ -39,6 +41,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public decimal? Weight      { get; set; }
         public decimal? Cost        { get; set; }
         public int? ProductId       { get; set; }
+
+        public bool Active          { get; set; }
 
         public virtual ProductResponse? Product { get; set; }
     }

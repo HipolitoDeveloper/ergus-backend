@@ -31,5 +31,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public string? Reference    { get; set; } = string.Empty;
         public string? ZipCode      { get; set; }
         public string? AddressValue { get; set; }
+
+        public bool Active          { get; } = true;
     }
 }

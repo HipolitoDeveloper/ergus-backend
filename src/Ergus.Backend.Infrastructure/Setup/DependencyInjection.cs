@@ -9,8 +9,8 @@ namespace Ergus.Backend.Infrastructure.Setup
     {
         public static void AddDependencyInjectionRepositoryServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppClientContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultClient")); }, ServiceLifetime.Singleton);
-            services.AddDbContext<AppServerContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultServer")); }, ServiceLifetime.Singleton);
+            services.AddDbContext<AppClientContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultClient")); }, ServiceLifetime.Transient);
+            services.AddDbContext<AppServerContext>(o => { o.UseNpgsql(configuration.GetConnectionString("DefaultServer")); }, ServiceLifetime.Transient);
 
             services.AddSingleton<IAddressRepository, AddressRepository>();
             services.AddSingleton<IAdvertisementRepository, AdvertisementRepository>();

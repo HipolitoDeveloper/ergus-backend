@@ -19,6 +19,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
             this.PriceListId = skuPrice.PriceListId;
             this.SkuId = skuPrice.SkuId;
 
+            this.Active = !skuPrice.WasRemoved;
+
             this.PriceList = skuPrice.PriceList == null ? null : new PriceListResponse(skuPrice.PriceList!);
             this.Sku = skuPrice.Sku == null ? null : new SkuResponse(skuPrice.Sku!);
         }
@@ -32,6 +34,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public DateTime? PromotionEnd   { get; set; }
         public int? PriceListId         { get; set; }
         public int? SkuId               { get; set; }
+
+        public bool Active              { get; set; }
 
         public virtual PriceListResponse? PriceList     { get; set; }
         public virtual SkuResponse? Sku                 { get; set; }

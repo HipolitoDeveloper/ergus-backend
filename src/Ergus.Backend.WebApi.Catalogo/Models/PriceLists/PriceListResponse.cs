@@ -21,6 +21,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
             this.OperationType = priceList.OperationType;
             this.SaleMaxAmount = priceList.SaleMaxAmount;
             this.ParentId = priceList.ParentId;
+
+            this.Active = !priceList.WasRemoved;
         }
 
         public int Id                   { get; set; }
@@ -35,5 +37,7 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public string? OperationType    { get; set; }
         public int SaleMaxAmount        { get; set; }
         public int? ParentId            { get; set; }
+
+        public bool Active              { get; set; }
     }
 }

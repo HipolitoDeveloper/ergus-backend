@@ -15,6 +15,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
             this.MetadataId = productAttribute.MetadataId;
             this.ProductId = productAttribute.ProductId;
 
+            this.Active = !productAttribute.WasRemoved;
+
             this.Metadata = productAttribute.Metadata == null ? null : new MetadataResponse(productAttribute.Metadata!);
             this.Product = productAttribute.Product == null ? null : new ProductResponse(productAttribute.Product!);
         }
@@ -24,6 +26,8 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public string ExternalCode  { get; set; } = string.Empty;
         public int? MetadataId      { get; set; }
         public int? ProductId       { get; set; }
+
+        public bool Active          { get; set; }
 
         public virtual MetadataResponse? Metadata   { get; set; }
         public virtual ProductResponse? Product     { get; set; }
