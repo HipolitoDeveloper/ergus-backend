@@ -11,6 +11,7 @@ namespace Ergus.Backend.Infrastructure.Repositories
         Task<Category?> GetByCode(string code);
         Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false);
         Task<List<int>> GetAllIds();
+        Task<List<CategoryTree>> GetAllTree();
         Task<Category> Update(Category category);
     }
 
@@ -82,6 +83,12 @@ namespace Ergus.Backend.Infrastructure.Repositories
         {
             var categoryIds = await this._context.Categories!.Select(c => c.Id).OrderBy(q => q).ToListAsync();
             return categoryIds;
+        }
+
+        public async Task<List<CategoryTree>> GetAllTree()
+        {
+            var categoryTrees = await this._context.Categories!.Select(c => new CategoryTree(c.Id, c.Name, c.ParentId)).AsNoTracking().ToListAsync();
+            return categoryTrees;
         }
 
         public async Task<Category> Update(Category category)

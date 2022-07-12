@@ -30,4 +30,25 @@ namespace Ergus.Backend.WebApi.Catalogo.Models
         public virtual CategoryResponse? Parent     { get; set; }
         public virtual CategoryTextResponse? Text   { get; set; }
     }
+
+    public class CategoryTreeResponse
+    {
+        public CategoryTreeResponse(CategoryTree category)
+        {
+            this.Children = new List<CategoryTreeResponse>();
+
+            if (category == null)
+                return;
+
+            var children = category.Children != null ? category.Children : new List<CategoryTree>();
+
+            this.Id = category.Id;
+            this.Name = category.Name;
+            this.Children = children.ConvertAll(c => new CategoryTreeResponse(c));
+        }
+
+        public int Id                               { get; set; }
+        public string Name                          { get; set; }
+        public List<CategoryTreeResponse> Children  { get; set; }
+    }
 }

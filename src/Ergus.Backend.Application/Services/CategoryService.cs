@@ -10,6 +10,8 @@ namespace Ergus.Backend.Application.Services
         Task<Category?> Get(int id);
         Task<List<Category>> GetAll(int page, int pageSize, bool disablePagination = false);
         Task<List<int>> GetAllIds();
+        Task<List<CategoryTree>> GetAllTree(List<CategoryTree> categoriesList);
+        Task<List<CategoryTree>> GetTree();
         Task<Category?> Update(Category category);
     }
 
@@ -65,6 +67,22 @@ namespace Ergus.Backend.Application.Services
             return await this._categoryRepository.GetAllIds();
         }
 
+        public async Task<List<CategoryTree>> GetAllTree(List<CategoryTree> categoriesList)
+        {
+            var rootList = categoriesList.Where(c => c.ParentId == null).OrderBy(c => c.Name).ToList();
+
+            AssociateParentNodeWithChildren(rootList, categoriesList);
+
+            return await Task.FromResult(rootList);
+        }
+
+        public async Task<List<CategoryTree>> GetTree()
+        {
+            var categoriesList = await this._categoryRepository.GetAllTree();
+
+            return await GetAllTree(categoriesList);
+        }
+
         public async Task<Category?> Update(Category category)
         {
             var oldCategory = await this._categoryRepository.Get(category.Id, true);
@@ -82,6 +100,33 @@ namespace Ergus.Backend.Application.Services
             var success = await this._categoryRepository.UnitOfWork.Commit();
 
             return success ? category : null;
+        }
+
+
+
+        private void AssociateParentNodeWithChildren(List<CategoryTree> parentList, List<CategoryTree> completeTree)
+        {
+            if (parentList == null)
+                parentList = new List<CategoryTree>();
+
+            if (completeTree == null)
+                completeTree = new List<CategoryTree>();
+
+            var parentListIds = parentList.Select(c => c.Id).ToList();
+            var childrenList = completeTree.Where(c => c.ParentId.HasValue && parentListIds.Contains(c.ParentId.Value)).OrderBy(c => c.ParentId).ThenBy(c => c.Id).ToList();
+
+            if (!childrenList.Any())
+                return;
+
+            foreach (var parent in parentList)
+            {
+                var list = childrenList?.Where(c => c.ParentId == parent.Id)?.OrderBy(c => c.Name).ToList();
+
+                if (list != null && list.Count > 0)
+                    parent.Children.AddRange(list);
+            }
+
+            AssociateParentNodeWithChildren(childrenList, completeTree);
         }
     }
 }

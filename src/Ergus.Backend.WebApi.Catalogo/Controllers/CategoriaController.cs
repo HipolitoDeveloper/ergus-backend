@@ -75,6 +75,14 @@ namespace Ergus.Backend.WebApi.Catalogo.Controllers
             return new ApiResult(new Saida(true, new List<string>(), categoryIds));
         }
 
+        [HttpGet]
+        [Route("get-tree")]
+        public async Task<IActionResult> GetCategoryTree()
+        {
+            var categoryTree= await this._categoryService.GetTree();
+            return new ApiResult(new Saida(true, new List<string>(), categoryTree.ConvertAll(c => new CategoryTreeResponse(c))));
+        }
+
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] CategoryUpdateRequest? request)
         {

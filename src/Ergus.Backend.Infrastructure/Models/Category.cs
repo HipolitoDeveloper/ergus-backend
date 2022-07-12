@@ -130,6 +130,30 @@ namespace Ergus.Backend.Infrastructure.Models
         #endregion [ FIM - Metodos ]
     }
 
+    public class CategoryTree
+    {
+        public CategoryTree()
+        {
+            this.Children = new List<CategoryTree>();
+        }
+
+        public CategoryTree(int id, string name, int? parentId) : this()
+        {
+            this.Id = id;
+            this.Name = name;
+            this.ParentId = parentId;
+        }
+
+        #region [ Propriedades ]
+
+        public int Id                       { get; private set; }
+        public string Name                  { get; private set; }
+        public List<CategoryTree> Children  { get; private set; }
+        public int? ParentId                { get; private set; }
+
+        #endregion [ FIM - Propriedades ]
+    }
+
     public class CategoryModelValidation : AbstractValidator<Category>
     {
         public CategoryModelValidation()
