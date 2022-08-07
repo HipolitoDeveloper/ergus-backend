@@ -4,12 +4,17 @@ using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.WebApi.Catalogo.Models.Advertisements.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.AdvertisementSkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Grids.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.HorizontalVariations.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.PriceLists.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Producers.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Products.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Providers.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Sections.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.SkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Skus.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.StockUnits.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.VerticalVariations.Request;
 
 namespace Ergus.Backend.WebApi.Catalogo.Helpers
 {
@@ -157,6 +162,80 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - Category ]
+
+        #region [ Grid ]
+
+        public static Grid? ToGrid(this GridAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var grid = Grid.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return grid;
+        }
+
+        public static Grid? ToGrid(this GridUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var grid = new Grid(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return grid;
+        }
+
+        #endregion [ FIM - Grid ]
+
+        #region [ HorizontalVariation ]
+
+        public static HorizontalVariation? ToHorizontalVariation(this HorizontalVariationAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var horizontalVariation = HorizontalVariation.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    strInterface: request.Interface!,
+                    color: request.Color!,
+                    order: request.Order ?? 0,
+                    gridId: request.GridId
+                );
+
+            return horizontalVariation;
+        }
+
+        public static HorizontalVariation? ToHorizontalVariation(this HorizontalVariationUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var horizontalVariation = new HorizontalVariation(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    strInterface: request.Interface!,
+                    color: request.Color!,
+                    order: request.Order ?? 0,
+                    gridId: request.GridId
+                );
+
+            return horizontalVariation;
+        }
+
+        #endregion [ FIM - HorizontalVariation ]
 
         #region [ PriceList ]
 
@@ -458,6 +537,39 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
 
         #endregion [ FIM - Provider ]
 
+        #region [ Section ]
+
+        public static Section? ToSection(this SectionAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var section = Section.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return section;
+        }
+
+        public static Section? ToSection(this SectionUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var section = new Section(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return section;
+        }
+
+        #endregion [ FIM - Section ]
+
         #region [ Sku ]
 
         public static Sku? ToSku(this SkuAddRequest request)
@@ -551,5 +663,77 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - AdvertisementSkuPrice ]
+
+        #region [ StockUnit ]
+
+        public static StockUnit? ToStockUnit(this StockUnitAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var stockUnit = StockUnit.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return stockUnit;
+        }
+
+        public static StockUnit? ToStockUnit(this StockUnitUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var stockUnit = new StockUnit(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!
+                );
+
+            return stockUnit;
+        }
+
+        #endregion [ FIM - StockUnit ]
+
+        #region [ VerticalVariation ]
+
+        public static VerticalVariation? ToVerticalVariation(this VerticalVariationAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var verticalVariation = VerticalVariation.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    strInterface: request.Interface!,
+                    order: request.Order ?? 0,
+                    gridId: request.GridId
+                );
+
+            return verticalVariation;
+        }
+
+        public static VerticalVariation? ToVerticalVariation(this VerticalVariationUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var verticalVariation = new VerticalVariation(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    strInterface: request.Interface!,
+                    order: request.Order ?? 0,
+                    gridId: request.GridId
+                );
+
+            return verticalVariation;
+        }
+
+        #endregion [ FIM - VerticalVariation ]
     }
 }

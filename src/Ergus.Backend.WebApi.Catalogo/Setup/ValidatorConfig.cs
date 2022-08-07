@@ -42,6 +42,20 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
                 StaticCategoryCodeBeUniqueValidator.Configure(categoryRepository);
             }
 
+            var gridRepository = app.ApplicationServices.GetService<IGridRepository>();
+            if (gridRepository != null)
+            {
+                StaticGridExistsValidator.Configure(gridRepository);
+                StaticGridCodeBeUniqueValidator.Configure(gridRepository);
+            }
+
+            var horizontalVariationRepository = app.ApplicationServices.GetService<IHorizontalVariationRepository>();
+            if (horizontalVariationRepository != null)
+            {
+                StaticHorizontalVariationExistsValidator.Configure(horizontalVariationRepository);
+                StaticHorizontalVariationCodeBeUniqueValidator.Configure(horizontalVariationRepository);
+            }
+
             var integrationRepository = app.ApplicationServices.GetService<IIntegrationRepository>();
             if (integrationRepository != null)
             {
@@ -85,6 +99,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
                 StaticProviderCodeBeUniqueValidator.Configure(providerRepository);
             }
 
+            var sectionRepository = app.ApplicationServices.GetService<ISectionRepository>();
+            if (sectionRepository != null)
+            {
+                StaticSectionExistsValidator.Configure(sectionRepository);
+                StaticSectionCodeBeUniqueValidator.Configure(sectionRepository);
+            }
+
             var skuRepository = app.ApplicationServices.GetService<ISkuRepository>();
             if (skuRepository != null)
             {
@@ -97,6 +118,20 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
             {
                 StaticSkuPriceExistsValidator.Configure(skuPriceRepository);
                 StaticSkuPriceCodeBeUniqueValidator.Configure(skuPriceRepository);
+            }
+
+            var stockUnitRepository = app.ApplicationServices.GetService<IStockUnitRepository>();
+            if (stockUnitRepository != null)
+            {
+                StaticStockUnitExistsValidator.Configure(stockUnitRepository);
+                StaticStockUnitCodeBeUniqueValidator.Configure(stockUnitRepository);
+            }
+
+            var verticalVariationRepository = app.ApplicationServices.GetService<IVerticalVariationRepository>();
+            if (verticalVariationRepository != null)
+            {
+                StaticVerticalVariationExistsValidator.Configure(verticalVariationRepository);
+                StaticVerticalVariationCodeBeUniqueValidator.Configure(verticalVariationRepository);
             }
         }
     }

@@ -101,6 +101,32 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.LongDescription, actual.LongDescription);
         }
 
+        public static void AssertEqual(Grid expected, Grid actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+
+            AssertEqual<Grid>(expected, actual);
+        }
+
+        public static void AssertEqual(HorizontalVariation expected, HorizontalVariation actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Interface, actual.Interface);
+            Assert.Equal(expected.Color, actual.Color);
+            Assert.Equal(expected.Order, actual.Order);
+            Assert.Equal(expected.GridId, actual.GridId);
+
+            AssertEqual<HorizontalVariation>(expected, actual);
+        }
+
         public static void AssertEqual(PriceList expected, PriceList actual)
         {
             Assert.True(actual != null);
@@ -174,6 +200,17 @@ namespace Ergus.Backend.Application.Tests.Helpers
             AssertEqual<Provider>(expected, actual);
         }
 
+        public static void AssertEqual(Section expected, Section actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+
+            AssertEqual<Section>(expected, actual);
+        }
+
         public static void AssertEqual(Sku expected, Sku actual)
         {
             Assert.True(actual != null);
@@ -210,6 +247,17 @@ namespace Ergus.Backend.Application.Tests.Helpers
             AssertEqual<SkuPrice>(expected, actual);
         }
 
+        public static void AssertEqual(StockUnit expected, StockUnit actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+
+            AssertEqual<StockUnit>(expected, actual);
+        }
+
         public static void AssertEqual(User expected, User actual)
         {
             Assert.True(actual != null);
@@ -218,6 +266,20 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.Login, actual.Login);
             Assert.Equal(expected.Password, actual.Password);
             Assert.Equal(expected.Email, actual.Email);
+        }
+
+        public static void AssertEqual(VerticalVariation expected, VerticalVariation actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Interface, actual.Interface);
+            Assert.Equal(expected.Order, actual.Order);
+            Assert.Equal(expected.GridId, actual.GridId);
+
+            AssertEqual<VerticalVariation>(expected, actual);
         }
     }
 }

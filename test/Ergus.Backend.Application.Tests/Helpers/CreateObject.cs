@@ -94,6 +94,30 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static Grid GetGrid(int id)
+        {
+            return new Grid(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Grade"
+            );
+        }
+
+        public static HorizontalVariation GetHorizontalVariation(int id, int? gridId)
+        {
+            return new HorizontalVariation(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Variação Horizontal",
+                strInterface: "Interface",
+                color: "FFFFFF",
+                order: 1,
+                gridId: gridId
+            );
+        }
+
         public static Integration GetIntegration(int id)
         {
             return new Integration(
@@ -191,6 +215,16 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static Section GetSection(int id)
+        {
+            return new Section(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Secao"
+            );
+        }
+
         public static Sku GetSku(int id, int? productId)
         {
             return new Sku(
@@ -225,6 +259,16 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static StockUnit GetStockUnit(int id)
+        {
+            return new StockUnit(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Unidade Estoque"
+            );
+        }
+
         public static User GetUser(int id)
         {
             return new User(
@@ -233,6 +277,19 @@ namespace Ergus.Backend.Application.Tests.Helpers
                 login: "Login",
                 password: "Password",
                 email: "email@ab.com"
+            );
+        }
+
+        public static VerticalVariation GetVerticalVariation(int id, int? gridId)
+        {
+            return new VerticalVariation(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Variação Vertical",
+                strInterface: "Interface",
+                order: 1,
+                gridId: gridId
             );
         }
     }

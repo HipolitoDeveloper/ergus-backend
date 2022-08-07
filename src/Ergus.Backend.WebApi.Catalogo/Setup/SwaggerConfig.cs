@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Ergus.Backend.WebApi.Catalogo.Setup
 {
@@ -40,7 +41,12 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
         public static void UseSwaggerConfigure(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.DefaultModelsExpandDepth(-1); // Oculta a sessão "Models"
+                options.DocExpansion(DocExpansion.None);
+            });
         }
     }
 }
