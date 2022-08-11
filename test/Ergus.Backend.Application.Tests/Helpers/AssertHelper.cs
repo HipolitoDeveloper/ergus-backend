@@ -254,6 +254,9 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.Code, actual.Code);
             Assert.Equal(expected.ExternalCode, actual.ExternalCode);
             Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Complement, actual.Complement);
+            Assert.Equal(expected.AddressId, actual.AddressId);
+            Assert.Equal(expected.CompanyId, actual.CompanyId);
 
             AssertEqual<StockUnit>(expected, actual);
         }

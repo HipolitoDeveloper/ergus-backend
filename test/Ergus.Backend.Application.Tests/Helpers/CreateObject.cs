@@ -94,6 +94,14 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static Company GetCompany(int id)
+        {
+            return new Company(
+                id: id,
+                code: "COD"
+            );
+        }
+
         public static Grid GetGrid(int id)
         {
             return new Grid(
@@ -259,13 +267,27 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
-        public static StockUnit GetStockUnit(int id)
+        public static StockUnit GetStockUnit(int id, int? addressId, int? companyId)
         {
             return new StockUnit(
                 id: id,
                 code: "COD",
                 externalCode: "ECOD",
-                name: "Unidade Estoque"
+                name: "Unidade Estoque",
+                complement: "Complemento",
+                addressId: addressId,
+                companyId: companyId
+            );
+        }
+
+        public static UnitOfMeasure GetUnitOfMeasure(int id)
+        {
+            return new UnitOfMeasure(
+                id: id,
+                code: "COD",
+                externalCode: "EXTC",
+                description: "Descricao",
+                acronym: "Sigla"
             );
         }
 

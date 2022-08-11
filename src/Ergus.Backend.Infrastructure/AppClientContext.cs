@@ -14,6 +14,7 @@ namespace Ergus.Backend.Infrastructure
         public virtual DbSet<AdvertisementSkuPrice>? AdvertisementSkuPrices { get; set; }
         public virtual DbSet<Category>? Categories                          { get; set; }
         public virtual DbSet<CategoryText>? CategoryTexts                   { get; set; }
+        public virtual DbSet<Company>? Companies                            { get; set; }
         public virtual DbSet<Grid>? Grids                                   { get; set; }
         public virtual DbSet<HorizontalVariation>? HorizontalVariations     { get; set; }
         public virtual DbSet<Integration>? Integrations                     { get; set; }
@@ -27,6 +28,7 @@ namespace Ergus.Backend.Infrastructure
         public virtual DbSet<Sku>? Skus                                     { get; set; }
         public virtual DbSet<SkuPrice>? SkuPrices                           { get; set; }
         public virtual DbSet<StockUnit>? StockUnits                         { get; set; }
+        public virtual DbSet<UnitOfMeasure>? UnitOfMeasures                 { get; set; }
         public virtual DbSet<VerticalVariation>? VerticalVariations         { get; set; }
 
         #endregion [ FIM - Propriedades ]

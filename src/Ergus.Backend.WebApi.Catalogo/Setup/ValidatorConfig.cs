@@ -42,6 +42,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
                 StaticCategoryCodeBeUniqueValidator.Configure(categoryRepository);
             }
 
+            var companyRepository = app.ApplicationServices.GetService<ICompanyRepository>();
+            if (companyRepository != null)
+            {
+                StaticCompanyExistsValidator.Configure(companyRepository);
+                StaticCompanyCodeBeUniqueValidator.Configure(companyRepository);
+            }
+
             var gridRepository = app.ApplicationServices.GetService<IGridRepository>();
             if (gridRepository != null)
             {
@@ -125,6 +132,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
             {
                 StaticStockUnitExistsValidator.Configure(stockUnitRepository);
                 StaticStockUnitCodeBeUniqueValidator.Configure(stockUnitRepository);
+            }
+
+            var unitOfMeasureRepository = app.ApplicationServices.GetService<IUnitOfMeasureRepository>();
+            if (unitOfMeasureRepository != null)
+            {
+                StaticUnitOfMeasureExistsValidator.Configure(unitOfMeasureRepository);
+                StaticUnitOfMeasureCodeBeUniqueValidator.Configure(unitOfMeasureRepository);
             }
 
             var verticalVariationRepository = app.ApplicationServices.GetService<IVerticalVariationRepository>();

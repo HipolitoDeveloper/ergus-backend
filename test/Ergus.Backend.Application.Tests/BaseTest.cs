@@ -26,6 +26,7 @@ namespace Ergus.Backend.Application.Tests
         protected Mock<IAdvertisementSkuRepository> _mockAdvertisementSkuRepository;
         protected Mock<IAdvertisementSkuPriceRepository> _mockAdvertisementSkuPriceRepository;
         protected Mock<ICategoryRepository> _mockCategoryRepository;
+        protected Mock<ICompanyRepository> _mockCompanyRepository;
         protected Mock<IGridRepository> _mockGridRepository;
         protected Mock<IHorizontalVariationRepository> _mockHorizontalVariationRepository;
         protected Mock<IIntegrationRepository> _mockIntegrationRepository;
@@ -39,6 +40,7 @@ namespace Ergus.Backend.Application.Tests
         protected Mock<ISkuRepository> _mockSkuRepository;
         protected Mock<ISkuPriceRepository> _mockSkuPriceRepository;
         protected Mock<IStockUnitRepository> _mockStockUnitRepository;
+        protected Mock<IUnitOfMeasureRepository> _mockUnitOfMeasureRepository;
         protected Mock<IUserRepository> _mockUserRepository;
         protected Mock<IVerticalVariationRepository> _mockVerticalVariationRepository;
 
@@ -80,6 +82,14 @@ namespace Ergus.Backend.Application.Tests
 
             var category = CreateObject.GetCategory(categoryId, null, null);
             this._mockCategoryRepository.Setup(x => x.Get(categoryId, false)).ReturnsAsync(category);
+        }
+
+        public void MockGetCompany(int companyId)
+        {
+            this._mockCompanyRepository.Reset();
+
+            var company = CreateObject.GetCompany(companyId);
+            this._mockCompanyRepository.Setup(x => x.Get(companyId, false)).ReturnsAsync(company);
         }
 
         public void MockGetGrid(int gridId)
@@ -154,6 +164,14 @@ namespace Ergus.Backend.Application.Tests
             this._mockSkuRepository.Setup(x => x.Get(skuId, false)).ReturnsAsync(sku);
         }
 
+        public void MockGetUnitOfMeasure(int unitOfMeasureId)
+        {
+            this._mockUnitOfMeasureRepository.Reset();
+
+            var unitOfMeasure = CreateObject.GetUnitOfMeasure(unitOfMeasureId);
+            this._mockUnitOfMeasureRepository.Setup(x => x.Get(unitOfMeasureId, false)).ReturnsAsync(unitOfMeasure);
+        }
+
         public void MockGetUser(int userId)
         {
             this._mockUserRepository.Reset();
@@ -176,6 +194,7 @@ namespace Ergus.Backend.Application.Tests
             this._mockAdvertisementSkuRepository = this._autoMock.Mock<IAdvertisementSkuRepository>();
             this._mockAdvertisementSkuPriceRepository = this._autoMock.Mock<IAdvertisementSkuPriceRepository>();
             this._mockCategoryRepository = this._autoMock.Mock<ICategoryRepository>();
+            this._mockCompanyRepository = this._autoMock.Mock<ICompanyRepository>();
             this._mockGridRepository = this._autoMock.Mock<IGridRepository>();
             this._mockHorizontalVariationRepository = this._autoMock.Mock<IHorizontalVariationRepository>();
             this._mockIntegrationRepository = this._autoMock.Mock<IIntegrationRepository>();
@@ -189,6 +208,7 @@ namespace Ergus.Backend.Application.Tests
             this._mockSkuRepository = this._autoMock.Mock<ISkuRepository>();
             this._mockSkuPriceRepository = this._autoMock.Mock<ISkuPriceRepository>();
             this._mockStockUnitRepository = this._autoMock.Mock<IStockUnitRepository>();
+            this._mockUnitOfMeasureRepository = this._autoMock.Mock<IUnitOfMeasureRepository>();
             this._mockUserRepository = this._autoMock.Mock<IUserRepository>();
             this._mockVerticalVariationRepository = this._autoMock.Mock<IVerticalVariationRepository>();
 
@@ -239,6 +259,15 @@ namespace Ergus.Backend.Application.Tests
                 _mockCategoryRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
                 StaticCategoryExistsValidator.Configure(_mockCategoryRepository.Object);
                 StaticCategoryCodeBeUniqueValidator.Configure(_mockCategoryRepository.Object);
+            }
+
+            if (_mockCompanyRepository != null)
+            {
+                _appClientContext.Setup(x => x.Companies).Returns(new Mock<DbSet<Company>>().Object);
+                _mockCompanyRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
+                _mockCompanyRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+                StaticCompanyExistsValidator.Configure(_mockCompanyRepository.Object);
+                StaticCompanyCodeBeUniqueValidator.Configure(_mockCompanyRepository.Object);
             }
 
             if (_mockGridRepository != null)
@@ -354,6 +383,15 @@ namespace Ergus.Backend.Application.Tests
                 _mockStockUnitRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
                 StaticStockUnitExistsValidator.Configure(_mockStockUnitRepository.Object);
                 StaticStockUnitCodeBeUniqueValidator.Configure(_mockStockUnitRepository.Object);
+            }
+
+            if (_mockUnitOfMeasureRepository != null)
+            {
+                _appClientContext.Setup(x => x.UnitOfMeasures).Returns(new Mock<DbSet<UnitOfMeasure>>().Object);
+                _mockUnitOfMeasureRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
+                _mockUnitOfMeasureRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+                StaticUnitOfMeasureExistsValidator.Configure(_mockUnitOfMeasureRepository.Object);
+                StaticUnitOfMeasureCodeBeUniqueValidator.Configure(_mockUnitOfMeasureRepository.Object);
             }
 
             if (_mockUserRepository != null)

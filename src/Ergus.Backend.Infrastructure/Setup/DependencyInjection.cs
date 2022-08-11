@@ -17,6 +17,7 @@ namespace Ergus.Backend.Infrastructure.Setup
             services.AddSingleton<IAdvertisementSkuRepository, AdvertisementSkuRepository>();
             services.AddSingleton<IAdvertisementSkuPriceRepository, AdvertisementSkuPriceRepository>();
             services.AddSingleton<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<ICompanyRepository, CompanyRepository>();
             services.AddSingleton<IGridRepository, GridRepository>();
             services.AddSingleton<IHorizontalVariationRepository, HorizontalVariationRepository>();
             services.AddSingleton<IIntegrationRepository, IntegrationRepository>();
@@ -30,6 +31,7 @@ namespace Ergus.Backend.Infrastructure.Setup
             services.AddSingleton<ISkuRepository, SkuRepository>();
             services.AddSingleton<ISkuPriceRepository, SkuPriceRepository>();
             services.AddSingleton<IStockUnitRepository, StockUnitRepository>();
+            services.AddSingleton<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IVerticalVariationRepository, VerticalVariationRepository>();
         }

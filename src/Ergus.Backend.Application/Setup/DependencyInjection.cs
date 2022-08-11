@@ -21,6 +21,7 @@ namespace Ergus.Backend.Application.Setup
             services.AddSingleton<ISkuService, SkuService>();
             services.AddSingleton<ISkuPriceService, SkuPriceService>();
             services.AddSingleton<IStockUnitService, StockUnitService>();
+            services.AddSingleton<IUnitOfMeasureService, UnitOfMeasureService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IVerticalVariationService, VerticalVariationService>();
         }

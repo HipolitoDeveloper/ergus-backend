@@ -14,11 +14,16 @@ namespace Ergus.Backend.Application.Tests
         private StockUnitService _service;
         private StockUnit _stockUnit;
         private int _stockUnitId = 1;
+        private int _addressId = 2;
+        private int _companyId = 3;
 
         public StockUnitServiceTest() : base()
         {
-            _stockUnit = CreateObject.GetStockUnit(this._stockUnitId);
+            _stockUnit = CreateObject.GetStockUnit(this._stockUnitId, this._addressId, this._companyId);
             _service = this._autoMock.Create<StockUnitService>();
+
+            MockGetAddress(this._addressId);
+            MockGetCompany(this._companyId);
         }
 
         [Fact]
@@ -117,7 +122,7 @@ namespace Ergus.Backend.Application.Tests
 
             this._mockStockUnitRepository.Setup(x => x.Get(stockUnitId, true)).Returns(Task.FromResult((StockUnit?)null));
 
-            var actual = await _service.Update(new StockUnit(stockUnitId, String.Empty, String.Empty, String.Empty));
+            var actual = await _service.Update(new StockUnit(stockUnitId, String.Empty, String.Empty, String.Empty, String.Empty, null, null));
 
             this._mockStockUnitRepository.Verify(x => x.Get(stockUnitId, true), Times.Exactly(1));
             this._mockStockUnitRepository.Verify(x => x.Update(_stockUnit), Times.Exactly(0));

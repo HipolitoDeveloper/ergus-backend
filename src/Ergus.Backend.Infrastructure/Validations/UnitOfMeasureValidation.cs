@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Ergus.Backend.Infrastructure.Validations
 {
-    public class StockUnitValidation : AbstractValidator<IStockUnit>
+    public class UnitOfMeasureValidation : AbstractValidator<IUnitOfMeasure>
     {
-        public StockUnitValidation()
+        public UnitOfMeasureValidation()
         {
             RuleFor(x => x.Code)
                 .Cascade(CascadeMode.Stop)
@@ -17,13 +17,13 @@ namespace Ergus.Backend.Infrastructure.Validations
                 .NotEmpty().WithMessage("O Código Externo é obrigatório")
                 .Length(1, 50).WithMessage("O Código Externo deve ter até 50 caracteres");
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.Description)
                 .Cascade(CascadeMode.Stop)
-                .NotEmpty().WithMessage("O Nome é obrigatório")
-                .Length(1, 100).WithMessage("O Nome deve ter até 100 caracteres");
+                .NotEmpty().WithMessage("A Descrição é obrigatória")
+                .Length(1, 100).WithMessage("A Descrição deve ter até 200 caracteres");
 
-            RuleFor(x => x.Complement)
-                .Length(0, 1000).WithMessage("O Complemento deve ter até 1000 caracteres");
+            RuleFor(x => x.Acronym)
+                .Length(0, 10).WithMessage("A Sigla deve ter até 10 caracteres");
         }
     }
 }

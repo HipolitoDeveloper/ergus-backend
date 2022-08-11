@@ -3,30 +3,28 @@ using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.Infrastructure.Models.Interfaces;
 using Ergus.Backend.Infrastructure.Validations;
 
-namespace Ergus.Backend.WebApi.Catalogo.Models.StockUnits.Request
+namespace Ergus.Backend.WebApi.Catalogo.Models.UnitOfMeasures.Request
 {
-    public class StockUnitUpdateRequest : BaseModel, IStockUnit
+    public class UnitOfMeasureUpdateRequest : BaseModel, IUnitOfMeasure
     {
         public int Id               { get; set; }
         public string? Code         { get; set; } = string.Empty;
         public string? ExternalCode { get; set; } = string.Empty;
-        public string? Name         { get; set; } = string.Empty;
-        public string? Complement   { get; set; } = string.Empty;
-        public int? AddressId       { get; set; }
-        public int? CompanyId       { get; set; }
+        public string? Description  { get; set; } = string.Empty;
+        public string? Acronym      { get; set; } = string.Empty;
 
         public override bool EhValido()
         {
-            ValidationResult = new StockUnitUpdateRequestValidation().Validate(this);
+            ValidationResult = new UnitOfMeasureUpdateRequestValidation().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class StockUnitUpdateRequestValidation : AbstractValidator<StockUnitUpdateRequest>
+    public class UnitOfMeasureUpdateRequestValidation : AbstractValidator<UnitOfMeasureUpdateRequest>
     {
-        public StockUnitUpdateRequestValidation()
+        public UnitOfMeasureUpdateRequestValidation()
         {
-            Include(new StockUnitValidation());
+            Include(new UnitOfMeasureValidation());
 
             RuleFor(x => x.Id)
                 .Cascade(CascadeMode.Stop)

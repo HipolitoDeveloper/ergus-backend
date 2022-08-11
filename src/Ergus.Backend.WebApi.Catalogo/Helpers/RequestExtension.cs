@@ -15,6 +15,7 @@ using Ergus.Backend.WebApi.Catalogo.Models.SkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Skus.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.StockUnits.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.VerticalVariations.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.UnitOfMeasures.Request;
 
 namespace Ergus.Backend.WebApi.Catalogo.Helpers
 {
@@ -674,7 +675,10 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
             var stockUnit = StockUnit.Criar(
                     code: request.Code!,
                     externalCode: request.ExternalCode!,
-                    name: request.Name!
+                    name: request.Name!,
+                    complement: request.Complement,
+                    addressId: request.AddressId,
+                    companyId: request.CompanyId
                 );
 
             return stockUnit;
@@ -689,13 +693,51 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
                     id: request.Id!,
                     code: request.Code!,
                     externalCode: request.ExternalCode!,
-                    name: request.Name!
+                    name: request.Name!,
+                    complement: request.Complement,
+                    addressId: request.AddressId,
+                    companyId: request.CompanyId
                 );
 
             return stockUnit;
         }
 
         #endregion [ FIM - StockUnit ]
+
+        #region [ UnitOfMeasure ]
+
+        public static UnitOfMeasure? ToUnitOfMeasure(this UnitOfMeasureAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var unitOfMeasure = UnitOfMeasure.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    description: request.Description!,
+                    acronym: request.Acronym
+                );
+
+            return unitOfMeasure;
+        }
+
+        public static UnitOfMeasure? ToUnitOfMeasure(this UnitOfMeasureUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var unitOfMeasure = new UnitOfMeasure(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    description: request.Description!,
+                    acronym: request.Acronym
+                );
+
+            return unitOfMeasure;
+        }
+
+        #endregion [ FIM - UnitOfMeasure ]
 
         #region [ VerticalVariation ]
 

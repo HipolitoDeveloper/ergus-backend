@@ -12,12 +12,15 @@ namespace Ergus.Backend.Infrastructure.Models
     {
         public StockUnit() { }
 
-        public StockUnit(int id, string code, string externalCode, string name)
+        public StockUnit(int id, string code, string externalCode, string name, string complement, int? addressId, int? companyId)
         {
             Id = id;
             Code = code;
             ExternalCode = externalCode;
             Name = name;
+            Complement = complement;
+            AddressId = addressId;
+            CompanyId = companyId;
             UpdatedDate = DateTime.UtcNow;
         }
 
@@ -35,6 +38,17 @@ namespace Ergus.Backend.Infrastructure.Models
         [Column("ue_nome")]
         public string Name { get; private set; } = String.Empty;
 
+        [Column("ue_complemento")]
+        public string? Complement { get; private set; } = String.Empty;
+
+        [Column("end_id")]
+        [ForeignKey(nameof(Address))]
+        public int? AddressId { get; set; }
+
+        [Column("emp_id")]
+        [ForeignKey(nameof(Company))]
+        public int? CompanyId { get; set; }
+
 
         [Column("ue_dt_inc")]
         public DateTime CreatedDate { get; private set; }
@@ -51,11 +65,15 @@ namespace Ergus.Backend.Infrastructure.Models
         [Column("ue_dt_rem")]
         public DateTime? RemovedDate { get; private set; }
 
+
+        public virtual Address? Address { get; private set; }
+        public virtual Company? Company { get; private set; }
+
         #endregion [ FIM - Propriedades ]
 
         #region [ Metodos ]
 
-        public static StockUnit Criar(string code, string externalCode, string name)
+        public static StockUnit Criar(string code, string externalCode, string name, string? complement, int? addressId, int? companyId)
         {
             var stockUnit = new StockUnit();
 
@@ -63,6 +81,9 @@ namespace Ergus.Backend.Infrastructure.Models
             stockUnit.Code = code;
             stockUnit.ExternalCode = externalCode;
             stockUnit.Name = name;
+            stockUnit.Complement = complement;
+            stockUnit.AddressId = addressId;
+            stockUnit.CompanyId = companyId;
             stockUnit.RemovedId = 0;
             stockUnit.CreatedDate = DateTime.UtcNow;
             stockUnit.UpdatedDate = DateTime.UtcNow;
@@ -90,6 +111,9 @@ namespace Ergus.Backend.Infrastructure.Models
             this.Code = newStockUnit.Code;
             this.ExternalCode = newStockUnit.ExternalCode;
             this.Name = newStockUnit.Name;
+            this.Complement = newStockUnit.Complement;
+            this.AddressId = newStockUnit.AddressId;
+            this.CompanyId = newStockUnit.CompanyId;
             this.UpdatedDate = newStockUnit.UpdatedDate;
         }
 
@@ -122,6 +146,18 @@ namespace Ergus.Backend.Infrastructure.Models
             RuleFor(x => x)
                 .NotEmpty()
                 .IsStockUnitCodeUnique().WithMessage(x => $"O Código {x.Code} já existe no banco de dados");
+
+            When(x => x.AddressId.HasValue, () =>
+            {
+                RuleFor(x => x.AddressId)
+                    .AddressExists().WithMessage(x => $"O AddressId {x.AddressId} não faz referência a nenhum endereço no banco de dados");
+            });
+
+            When(x => x.CompanyId.HasValue, () =>
+            {
+                RuleFor(x => x.CompanyId)
+                    .CompanyExists().WithMessage(x => $"O CompanyId {x.CompanyId} não faz referência a nenhuma empresa no banco de dados");
+            });
         }
     }
 }

@@ -5,6 +5,9 @@
         string? Code            { get; }
         string? ExternalCode    { get; }
         string? Name            { get; }
+        string? Complement      { get; }
+        int? AddressId          { get; }
+        int? CompanyId          { get; }
 
         bool EhValido();
     }
