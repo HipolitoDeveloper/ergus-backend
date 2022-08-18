@@ -6,6 +6,7 @@ using Ergus.Backend.WebApi.Catalogo.Models.AdvertisementSkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Grids.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.HorizontalVariations.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.PaymentForms.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.PriceLists.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Producers.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Products.Request;
@@ -14,8 +15,8 @@ using Ergus.Backend.WebApi.Catalogo.Models.Sections.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.SkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Skus.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.StockUnits.Request;
-using Ergus.Backend.WebApi.Catalogo.Models.VerticalVariations.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.UnitOfMeasures.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.VerticalVariations.Request;
 
 namespace Ergus.Backend.WebApi.Catalogo.Helpers
 {
@@ -237,6 +238,42 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - HorizontalVariation ]
+
+        #region [ PaymentForm ]
+
+        public static PaymentForm? ToPaymentForm(this PaymentFormAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var paymentForm = PaymentForm.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    providerId: request.ProviderId
+                );
+
+            return paymentForm;
+        }
+
+        public static PaymentForm? ToPaymentForm(this PaymentFormUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var paymentForm = new PaymentForm(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    active: request.Active,
+                    providerId: request.ProviderId
+                );
+
+            return paymentForm;
+        }
+
+        #endregion [ FIM - PaymentForm ]
 
         #region [ PriceList ]
 

@@ -1,4 +1,5 @@
 ﻿using Ergus.Backend.Infrastructure.Models;
+using Ergus.Backend.Infrastructure.Models.Interfaces;
 using Ergus.Backend.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace Ergus.Backend.Infrastructure
         public virtual DbSet<HorizontalVariation>? HorizontalVariations     { get; set; }
         public virtual DbSet<Integration>? Integrations                     { get; set; }
         public virtual DbSet<Metadata>? Metadatas                           { get; set; }
+        public virtual DbSet<PaymentForm>? PaymentForms                     { get; set; }
         public virtual DbSet<PriceList>? PriceLists                         { get; set; }
         public virtual DbSet<Product>? Products                             { get; set; }
         public virtual DbSet<Producer>? Producers                           { get; set; }

@@ -127,6 +127,19 @@ namespace Ergus.Backend.Application.Tests.Helpers
             AssertEqual<HorizontalVariation>(expected, actual);
         }
 
+        public static void AssertEqual(PaymentForm expected, PaymentForm actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Active, actual.Active);
+            Assert.Equal(expected.ProviderId, actual.ProviderId);
+
+            AssertEqual<PaymentForm>(expected, actual);
+        }
+
         public static void AssertEqual(PriceList expected, PriceList actual)
         {
             Assert.True(actual != null);

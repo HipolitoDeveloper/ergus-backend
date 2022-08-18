@@ -74,6 +74,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
             if (metadataRepository != null)
                 StaticMetadataExistsValidator.Configure(metadataRepository);
 
+            var paymentFormRepository = app.ApplicationServices.GetService<IPaymentFormRepository>();
+            if (paymentFormRepository != null)
+            {
+                StaticPaymentFormExistsValidator.Configure(paymentFormRepository);
+                StaticPaymentFormCodeBeUniqueValidator.Configure(paymentFormRepository);
+            }
+
             var priceListRepository = app.ApplicationServices.GetService<IPriceListRepository>();
             if (priceListRepository != null)
             {

@@ -141,6 +141,18 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static PaymentForm GetPaymentForm(int id, int? providerId)
+        {
+            return new PaymentForm(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Forma Pagamento",
+                active: true,
+                providerId: providerId
+            );
+        }
+
         public static PriceList GetPriceList(int id, int? parentId)
         {
             return new PriceList(

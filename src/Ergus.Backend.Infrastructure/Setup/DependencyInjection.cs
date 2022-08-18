@@ -22,6 +22,7 @@ namespace Ergus.Backend.Infrastructure.Setup
             services.AddSingleton<IHorizontalVariationRepository, HorizontalVariationRepository>();
             services.AddSingleton<IIntegrationRepository, IntegrationRepository>();
             services.AddSingleton<IMetadataRepository, MetadataRepository>();
+            services.AddSingleton<IPaymentFormRepository, PaymentFormRepository>();
             services.AddSingleton<IPriceListRepository, PriceListRepository>();
             services.AddSingleton<IProducerRepository, ProducerRepository>();
             services.AddSingleton<IProductRepository, ProductRepository>();

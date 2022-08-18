@@ -12,6 +12,7 @@ namespace Ergus.Backend.Application.Setup
             services.AddSingleton<ICategoryService, CategoryService>();
             services.AddSingleton<IGridService, GridService>();
             services.AddSingleton<IHorizontalVariationService, HorizontalVariationService>();
+            services.AddSingleton<IPaymentFormService, PaymentFormService>();
             services.AddSingleton<IPriceListService, PriceListService>();
             services.AddSingleton<IProducerService, ProducerService>();
             services.AddSingleton<IProductService, ProductService>();

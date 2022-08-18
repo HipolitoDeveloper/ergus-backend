@@ -31,6 +31,7 @@ namespace Ergus.Backend.Application.Tests
         protected Mock<IHorizontalVariationRepository> _mockHorizontalVariationRepository;
         protected Mock<IIntegrationRepository> _mockIntegrationRepository;
         protected Mock<IMetadataRepository> _mockMetadataRepository;
+        protected Mock<IPaymentFormRepository> _mockPaymentFormRepository;
         protected Mock<IPriceListRepository> _mockPriceListRepository;
         protected Mock<IProducerRepository> _mockProducerRepository;
         protected Mock<IProductRepository> _mockProductRepository;
@@ -199,6 +200,7 @@ namespace Ergus.Backend.Application.Tests
             this._mockHorizontalVariationRepository = this._autoMock.Mock<IHorizontalVariationRepository>();
             this._mockIntegrationRepository = this._autoMock.Mock<IIntegrationRepository>();
             this._mockMetadataRepository = this._autoMock.Mock<IMetadataRepository>();
+            this._mockPaymentFormRepository = this._autoMock.Mock<IPaymentFormRepository>();
             this._mockPriceListRepository = this._autoMock.Mock<IPriceListRepository>();
             this._mockProducerRepository = this._autoMock.Mock<IProducerRepository>();
             this._mockProductRepository = this._autoMock.Mock<IProductRepository>();
@@ -303,6 +305,15 @@ namespace Ergus.Backend.Application.Tests
                 _mockMetadataRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
                 _mockMetadataRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
                 StaticMetadataExistsValidator.Configure(_mockMetadataRepository.Object);
+            }
+
+            if (_mockPaymentFormRepository != null)
+            {
+                _appClientContext.Setup(x => x.PaymentForms).Returns(new Mock<DbSet<PaymentForm>>().Object);
+                _mockPaymentFormRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
+                _mockPaymentFormRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+                StaticPaymentFormExistsValidator.Configure(_mockPaymentFormRepository.Object);
+                StaticPaymentFormCodeBeUniqueValidator.Configure(_mockPaymentFormRepository.Object);
             }
 
             if (_mockPriceListRepository != null)
