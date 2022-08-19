@@ -49,6 +49,13 @@ namespace Ergus.Backend.WebApi.Catalogo.Setup
                 StaticCompanyCodeBeUniqueValidator.Configure(companyRepository);
             }
 
+            var currencyRepository = app.ApplicationServices.GetService<ICurrencyRepository>();
+            if (currencyRepository != null)
+            {
+                StaticCurrencyExistsValidator.Configure(currencyRepository);
+                StaticCurrencyCodeBeUniqueValidator.Configure(currencyRepository);
+            }
+
             var gridRepository = app.ApplicationServices.GetService<IGridRepository>();
             if (gridRepository != null)
             {

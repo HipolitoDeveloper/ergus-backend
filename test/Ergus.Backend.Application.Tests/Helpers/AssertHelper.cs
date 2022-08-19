@@ -101,6 +101,18 @@ namespace Ergus.Backend.Application.Tests.Helpers
             Assert.Equal(expected.LongDescription, actual.LongDescription);
         }
 
+        public static void AssertEqual(Currency expected, Currency actual)
+        {
+            Assert.True(actual != null);
+            Assert.Equal(expected.Id, actual!.Id);
+            Assert.Equal(expected.Code, actual.Code);
+            Assert.Equal(expected.ExternalCode, actual.ExternalCode);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Symbol, actual.Symbol);
+
+            AssertEqual<Currency>(expected, actual);
+        }
+
         public static void AssertEqual(Grid expected, Grid actual)
         {
             Assert.True(actual != null);

@@ -27,6 +27,7 @@ namespace Ergus.Backend.Application.Tests
         protected Mock<IAdvertisementSkuPriceRepository> _mockAdvertisementSkuPriceRepository;
         protected Mock<ICategoryRepository> _mockCategoryRepository;
         protected Mock<ICompanyRepository> _mockCompanyRepository;
+        protected Mock<ICurrencyRepository> _mockCurrencyRepository;
         protected Mock<IGridRepository> _mockGridRepository;
         protected Mock<IHorizontalVariationRepository> _mockHorizontalVariationRepository;
         protected Mock<IIntegrationRepository> _mockIntegrationRepository;
@@ -91,6 +92,14 @@ namespace Ergus.Backend.Application.Tests
 
             var company = CreateObject.GetCompany(companyId);
             this._mockCompanyRepository.Setup(x => x.Get(companyId, false)).ReturnsAsync(company);
+        }
+
+        public void MockGetCurrency(int currencyId)
+        {
+            this._mockCurrencyRepository.Reset();
+
+            var currency = CreateObject.GetCurrency(currencyId);
+            this._mockCurrencyRepository.Setup(x => x.Get(currencyId, false)).ReturnsAsync(currency);
         }
 
         public void MockGetGrid(int gridId)
@@ -196,6 +205,7 @@ namespace Ergus.Backend.Application.Tests
             this._mockAdvertisementSkuPriceRepository = this._autoMock.Mock<IAdvertisementSkuPriceRepository>();
             this._mockCategoryRepository = this._autoMock.Mock<ICategoryRepository>();
             this._mockCompanyRepository = this._autoMock.Mock<ICompanyRepository>();
+            this._mockCurrencyRepository = this._autoMock.Mock<ICurrencyRepository>();
             this._mockGridRepository = this._autoMock.Mock<IGridRepository>();
             this._mockHorizontalVariationRepository = this._autoMock.Mock<IHorizontalVariationRepository>();
             this._mockIntegrationRepository = this._autoMock.Mock<IIntegrationRepository>();
@@ -270,6 +280,15 @@ namespace Ergus.Backend.Application.Tests
                 _mockCompanyRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
                 StaticCompanyExistsValidator.Configure(_mockCompanyRepository.Object);
                 StaticCompanyCodeBeUniqueValidator.Configure(_mockCompanyRepository.Object);
+            }
+
+            if (_mockCurrencyRepository != null)
+            {
+                _appClientContext.Setup(x => x.Currencies).Returns(new Mock<DbSet<Currency>>().Object);
+                _mockCurrencyRepository.Setup(x => x.UnitOfWork).Returns(_appClientContext.Object);
+                _mockCurrencyRepository.Setup(x => x.UnitOfWork.Commit()).ReturnsAsync(true);
+                StaticCurrencyExistsValidator.Configure(_mockCurrencyRepository.Object);
+                StaticCurrencyCodeBeUniqueValidator.Configure(_mockCurrencyRepository.Object);
             }
 
             if (_mockGridRepository != null)

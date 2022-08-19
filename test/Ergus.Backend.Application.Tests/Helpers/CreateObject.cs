@@ -102,6 +102,17 @@ namespace Ergus.Backend.Application.Tests.Helpers
             );
         }
 
+        public static Currency GetCurrency(int id)
+        {
+            return new Currency(
+                id: id,
+                code: "COD",
+                externalCode: "ECOD",
+                name: "Moeda",
+                symbol: "M$"
+            );
+        }
+
         public static Grid GetGrid(int id)
         {
             return new Grid(

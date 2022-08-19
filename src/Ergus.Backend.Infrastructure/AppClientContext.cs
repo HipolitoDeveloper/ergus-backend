@@ -16,6 +16,7 @@ namespace Ergus.Backend.Infrastructure
         public virtual DbSet<Category>? Categories                          { get; set; }
         public virtual DbSet<CategoryText>? CategoryTexts                   { get; set; }
         public virtual DbSet<Company>? Companies                            { get; set; }
+        public virtual DbSet<Currency>? Currencies                          { get; set; }
         public virtual DbSet<Grid>? Grids                                   { get; set; }
         public virtual DbSet<HorizontalVariation>? HorizontalVariations     { get; set; }
         public virtual DbSet<Integration>? Integrations                     { get; set; }

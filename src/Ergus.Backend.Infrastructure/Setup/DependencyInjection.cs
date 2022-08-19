@@ -18,6 +18,7 @@ namespace Ergus.Backend.Infrastructure.Setup
             services.AddSingleton<IAdvertisementSkuPriceRepository, AdvertisementSkuPriceRepository>();
             services.AddSingleton<ICategoryRepository, CategoryRepository>();
             services.AddSingleton<ICompanyRepository, CompanyRepository>();
+            services.AddSingleton<ICurrencyRepository, CurrencyRepository>();
             services.AddSingleton<IGridRepository, GridRepository>();
             services.AddSingleton<IHorizontalVariationRepository, HorizontalVariationRepository>();
             services.AddSingleton<IIntegrationRepository, IntegrationRepository>();

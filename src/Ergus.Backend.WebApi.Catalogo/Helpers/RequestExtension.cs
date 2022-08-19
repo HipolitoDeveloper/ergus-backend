@@ -4,6 +4,7 @@ using Ergus.Backend.Infrastructure.Models;
 using Ergus.Backend.WebApi.Catalogo.Models.Advertisements.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.AdvertisementSkuPrices.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Categories.Request;
+using Ergus.Backend.WebApi.Catalogo.Models.Currencies.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.Grids.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.HorizontalVariations.Request;
 using Ergus.Backend.WebApi.Catalogo.Models.PaymentForms.Request;
@@ -164,6 +165,41 @@ namespace Ergus.Backend.WebApi.Catalogo.Helpers
         }
 
         #endregion [ FIM - Category ]
+
+        #region [ Currency ]
+
+        public static Currency? ToCurrency(this CurrencyAddRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var currency = Currency.Criar(
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    symbol: request.Symbol!
+                );
+
+            return currency;
+        }
+
+        public static Currency? ToCurrency(this CurrencyUpdateRequest request)
+        {
+            if (request == null)
+                return null;
+
+            var currency = new Currency(
+                    id: request.Id!,
+                    code: request.Code!,
+                    externalCode: request.ExternalCode!,
+                    name: request.Name!,
+                    symbol: request.Symbol!
+                );
+
+            return currency;
+        }
+
+        #endregion [ FIM - Currency ]
 
         #region [ Grid ]
 
